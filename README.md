@@ -37,3 +37,8 @@
   npm install redux
    npm install react-redux
   ```
+
+- #05 Redux hook
+
+  - useSelector (특정 reducer의 state를 가져올 수 있는 hook)
+  - useDispatch (action을 dispatch하기 위해 사용하는 hook)
