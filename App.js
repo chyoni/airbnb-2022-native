@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Asset } from 'expo-asset';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
+import Gate from './components/Gate';
 
 //! Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -72,8 +73,7 @@ export default function App() {
       style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
       onLayout={onLayoutRootView}
     >
-      <Text>SplashScreen Demo! 👋</Text>
-      <FontAwesome name={'newspaper-o'} />
+      <Gate />
     </View>
   );
 }

@@ -29,3 +29,11 @@
   npm install expo-asset
   npm install @expo/vector-icons
   ```
+
+- #04 Redux settings
+
+  ```bash
+  npm install @reduxjs/toolkit
+  npm install redux
+   npm install react-redux
+  ```
