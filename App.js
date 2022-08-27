@@ -1,11 +1,29 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Ionicons } from '@expo/vector-icons';
+import { Asset } from 'expo-asset';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 
 //! Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
+
+//! All images load func
+const cacheImages = (images) =>
+  images.map((image) => {
+    if (typeof image === 'string') {
+      return Image.prefetch(image);
+    } else {
+      return Asset.fromModule(image).downloadAsync();
+    }
+  });
+
+//! All fonts load func
+const cacheFonts = (fonts) =>
+  fonts.map((font) => {
+    Font.loadAsync(font);
+  });
 
 export default function App() {
   const [appReady, setAppReady] = useState(false);
@@ -13,7 +31,14 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
-        await Font.loadAsync(FontAwesome.font);
+        const fonts = [Ionicons.font, FontAwesome.font];
+        const images = [
+          require('./assets/cat.jpeg'),
+          'https://pluspng.com/img-png/airbnb-vector-png-airbnb-logo-airbnb-logo-877.png',
+        ];
+
+        await cacheFonts(fonts);
+        await cacheImages(images);
 
         //! Artificially delay for two seconds to simulate a slow loading
         await new Promise((resolve) => setTimeout(resolve, 2000));

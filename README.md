@@ -22,3 +22,10 @@
   6. return (<View>...</View>)
   7. useCallback (View에서 onLayout을 useCallback을 사용해서)
   8. SplashScreen hide
+
+- #03 Load assets, fonts
+
+  ```bash
+  npm install expo-asset
+  npm install @expo/vector-icons
+  ```
