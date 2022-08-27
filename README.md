@@ -42,3 +42,10 @@
 
   - useSelector (특정 reducer의 state를 가져올 수 있는 hook)
   - useDispatch (action을 dispatch하기 위해 사용하는 hook)
+
+- #06 Redux persist
+
+  ```bash
+  npm install redux-persist
+  npm install @react-native-async-storage/async-storage (얘는 redux persist에서 storage가 필요한데 그 storage를 이걸로 사용 react-native의 asyncstorage가 deprecated됐다고 하네)
+  ```
