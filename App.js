@@ -6,7 +6,8 @@ import { Asset } from 'expo-asset';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import Gate from './components/Gate';
-import store from './redux/store';
+import store, { persistor } from './redux/store';
+import { PersistGate } from 'redux-persist/es/integration/react';
 import { Provider } from 'react-redux';
 
 //! Keep the splash screen visible while we fetch resources
@@ -44,7 +45,7 @@ export default function App() {
         await cacheImages(images);
 
         //! Artificially delay for two seconds to simulate a slow loading
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        //await new Promise((resolve) => setTimeout(resolve, 2000));
         //! Tell the application to render
         setAppReady(true);
         await SplashScreen.hideAsync();
@@ -61,7 +62,10 @@ export default function App() {
   }
   return (
     <Provider store={store}>
-      <Gate />
+      {/* PersistGate는 핸드폰에 저장된 state를 load할 때까지 기다려줬다가 load가 다 끝나면 rendering을 하게 해주는 아이 */}
+      <PersistGate persistor={persistor}>
+        <Gate />
+      </PersistGate>
     </Provider>
   );
 }

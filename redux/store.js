@@ -35,6 +35,6 @@ const store = configureStore({
 });
 
 //! reducer뿐만 아니라 store도 persist하게 만들어줘야 햐기 때문에 이와 같이 작성
-const persistedStore = persistStore(store);
+export const persistor = persistStore(store);
 
 export default store;

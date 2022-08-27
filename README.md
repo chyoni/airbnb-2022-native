@@ -49,3 +49,13 @@
   npm install redux-persist
   npm install @react-native-async-storage/async-storage (얘는 redux persist에서 storage가 필요한데 그 storage를 이걸로 사용 react-native의 asyncstorage가 deprecated됐다고 하네)
   ```
+
+- #07 PersistGate
+
+  - 얘는 persist setting이 다 끝나고 그 setting대로 실행하기 위해 state의 변경사항점을 load해주는 아이
+
+  - react-native-debugger라는 앱을 사용해서 좀더 프로페셔널하게 관리하고 디버깅하자
+
+  ```bash
+  brew install --cask react-native-debugger
+  ```
