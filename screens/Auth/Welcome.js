@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import styled from 'styled-components/native';
 import { StatusBar } from 'react-native';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utils';
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utils';
 import { BlurView } from 'expo-blur';
-import Btn from '../components/Auth/Btn';
+import Btn from '../../components/Auth/Btn';
 
 const Container = styled.View`
   flex: 1;
@@ -24,10 +24,17 @@ const Image = styled.Image`
 
 const Logo = styled.Image`
   width: 100px;
-  height: 110px;
+  height: 107px;
+  margin-top: 50px;
 `;
 
-const BtnContainer = styled.View``;
+const BtnContainer = styled.View`
+  margin-top: 20px;
+`;
+
+const Divider = styled.View`
+  padding: 20px 0;
+`;
 
 export default ({ navigation }) => {
   const goToSignUp = () => navigation.navigate('SignUp');
@@ -51,6 +58,7 @@ export default ({ navigation }) => {
         />
         <BtnContainer>
           <Btn onPress={goToSignUp} text={'Sign Up'} accent={true} />
+          <Divider />
           <Btn onPress={goToSignIn} text={'Sign In'} />
         </BtnContainer>
       </BlurView>

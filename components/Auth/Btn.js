@@ -7,7 +7,7 @@ import colors from '../../colors';
 
 const Button = styled.View`
   border: 1px solid ${(props) => (props.accent ? 'transparent' : colors.black)};
-  border-radius: 10px;
+  border-radius: 30px;
   padding: 15px 0px;
   align-items: center;
   width: ${SCREEN_WIDTH / 2}px;
@@ -16,6 +16,8 @@ const Button = styled.View`
 
 const Text = styled.Text`
   color: ${(props) => (props.accent ? 'white' : colors.black)};
+  font-weight: 600;
+  font-size: 14px;
 `;
 
 const Btn = ({ onPress, text, accent = false }) => (
