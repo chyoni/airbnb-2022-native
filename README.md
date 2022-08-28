@@ -73,3 +73,10 @@
 - #09 Navigation Options
 
   - https://reactnavigation.org/docs/stack-navigator
+
+- #10 Styled components
+
+  ```bash
+  npm i --save styled-components
+  expo install expo-blur
+  ```

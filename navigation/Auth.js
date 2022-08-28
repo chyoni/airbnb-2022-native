@@ -4,10 +4,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Welcome from '../screens/Welcome';
 import SignUp from '../screens/SignUp';
 import SignIn from '../screens/SignIn';
-import { Ionicons } from '@expo/vector-icons';
+import BackBtn from '../components/Auth/BackBtn';
 
 const Auth = createStackNavigator();
-const isAndroid = Platform.OS === 'android';
 
 export default () => (
   <Auth.Navigator
@@ -16,17 +15,14 @@ export default () => (
       headerBackTitle: false,
       headerBackTitleVisible: false,
       headerTransparent: true,
-      headerBackImage: () => (
-        <View style={{ paddingLeft: 10 }}>
-          <Ionicons
-            name={isAndroid ? 'md-arrow-back' : 'ios-arrow-back'}
-            size={24}
-          />
-        </View>
-      ),
+      headerBackImage: () => <BackBtn />,
     }}
   >
-    <Auth.Screen name="Welcome" component={Welcome} />
+    <Auth.Screen
+      name="Welcome"
+      component={Welcome}
+      options={{ headerTintColor: 'white' }}
+    />
     <Auth.Screen name="SignUp" component={SignUp} />
     <Auth.Screen name="SignIn" component={SignIn} />
   </Auth.Navigator>
