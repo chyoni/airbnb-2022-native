@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import Btn from '../../components/Auth/Btn';
+import Input from '../../components/Auth/Input';
 
 const Container = styled.View`
   flex: 1;
@@ -10,11 +11,23 @@ const Container = styled.View`
 const TextInput = styled.TextInput``;
 
 export default () => {
-  const handleSubmit = () => alert('Sending data...');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const handleSubmit = () => alert(`${username}${password}`);
   return (
     <Container>
-      <TextInput placeholder={'Email'}></TextInput>
-      <TextInput placeholder={'Password'} secureTextEntry></TextInput>
+      <Input
+        value={username}
+        placeholder={'Username'}
+        autoCapitalize={'none'}
+        stateFn={setUsername}
+      />
+      <Input
+        value={password}
+        placeholder={'Password'}
+        isPassword
+        stateFn={setPassword}
+      />
       <Btn text={'Sign In'} accent onPress={handleSubmit} />
     </Container>
   );
