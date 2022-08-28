@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Image } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Ionicons } from '@expo/vector-icons';
 import { Asset } from 'expo-asset';
