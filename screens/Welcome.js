@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 import { StatusBar } from 'react-native';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utils';
 import { BlurView } from 'expo-blur';
+import Btn from '../components/Auth/Btn';
 
 const Container = styled.View`
   flex: 1;
@@ -12,17 +13,29 @@ const Container = styled.View`
 `;
 
 const Image = styled.Image`
+  position: absolute;
   top: 0;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
+  z-index: -1;
+  background-size: contain;
+  background-position: center;
+  width: ${SCREEN_WIDTH}px;
+  height: ${SCREEN_HEIGHT}px;
 `;
 
+const Logo = styled.Image`
+  width: 100px;
+  height: 110px;
+`;
+
+const BtnContainer = styled.View``;
+
 export default ({ navigation }) => {
+  const goToSignUp = () => navigation.navigate('SignUp');
+  const goToSignIn = () => navigation.navigate('SignIn');
   return (
     <Container>
       <BlurView
-        intensity={100}
+        intensity={30}
         tint="light"
         style={{
           flex: 1,
@@ -31,10 +44,21 @@ export default ({ navigation }) => {
           justifyContent: 'center',
         }}
       >
-        <Image
-          source={{ uri: 'https://jooinn.com/images/curious-cat-6.jpg' }}
+        <Logo
+          source={{
+            uri: 'https://pluspng.com/img-png/airbnb-vector-png-airbnb-logo-airbnb-logo-877.png',
+          }}
         />
+        <BtnContainer>
+          <Btn onPress={goToSignUp} text={'Sign Up'} accent={true} />
+          <Btn onPress={goToSignIn} text={'Sign In'} />
+        </BtnContainer>
       </BlurView>
+      <Image
+        source={{
+          uri: 'https://2.bp.blogspot.com/-CK6EN7xY2JY/T4k9fmdGJ7I/AAAAAAAAGDs/7YHvdNa-fbs/s1600/cute-puppy-wallpapers+(1).jpg',
+        }}
+      />
       <StatusBar barStyle={'light-content'} />
     </Container>
   );

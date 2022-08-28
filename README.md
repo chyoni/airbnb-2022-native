@@ -80,3 +80,11 @@
   npm i --save styled-components
   expo install expo-blur
   ```
+
+- #11 Auth button
+
+  - Auth navigation에서 사용되는 버튼의 컴포넌트를 만듦
+
+  ```bash
+  npm install prop-types
+  ```
