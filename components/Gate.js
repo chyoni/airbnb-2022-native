@@ -1,6 +1,9 @@
+import { FontAwesome } from '@expo/vector-icons';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import Auth from '../navigation/Auth';
 import { logIn, logOut } from '../redux/usersSlice';
 
 export default () => {
@@ -8,16 +11,14 @@ export default () => {
   const dispatch = useDispatch();
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <NavigationContainer>
       {isLoggedIn ? (
         <TouchableOpacity onPress={() => dispatch(logOut())}>
           <Text>Log out</Text>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity onPress={() => dispatch(logIn('token'))}>
-          <Text>Log in</Text>
-        </TouchableOpacity>
+        <Auth />
       )}
-    </View>
+    </NavigationContainer>
   );
 };

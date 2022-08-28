@@ -59,3 +59,12 @@
   ```bash
   brew install --cask react-native-debugger
   ```
+
+- #08 React Navigation
+
+  ```bash
+  npm install @react-navigation/native
+  expo install react-native-screens react-native-safe-area-context
+  npm install @react-navigation/stack
+  npx pod-install ios
+  ```
