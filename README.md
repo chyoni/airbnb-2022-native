@@ -94,3 +94,9 @@
 - #13 Sign in Input component
 
 - #14 KeyboardAvoidingView, Signup screen
+
+- #15 Axios for API (axios call settings)
+
+  ```bash
+  npm install axios
+  ```
