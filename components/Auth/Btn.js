@@ -10,7 +10,7 @@ const Button = styled.View`
   border-radius: 30px;
   padding: 15px 0px;
   align-items: center;
-  width: ${SCREEN_WIDTH / 2}px;
+  width: ${SCREEN_WIDTH / 1.5}px;
   background-color: ${(props) => (props.accent ? colors.red : 'transparent')};
 `;
 
