@@ -27,4 +27,13 @@ const callApi = async (
   }
 };
 
-export const createAccount = (form: any) => callApi("post", "/users/", form);
+export interface ICreateAccount {
+  first_name: string;
+  last_name: string;
+  email: string;
+  username: string;
+  password: string;
+}
+
+export const createAccount = (form: ICreateAccount) =>
+  callApi("post", "/users/", form);

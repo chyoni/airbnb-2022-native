@@ -6,6 +6,7 @@ import colors from "../../colors";
 export interface IInput {
   value?: string;
   placeholder?: string;
+  keyboardType?: string;
   isPassword?: boolean;
   autoCapitalize?: string;
   stateFn: (text: string) => void;
@@ -23,12 +24,14 @@ const Container = styled.TextInput`
 const Input: React.FC<IInput> = ({
   value,
   placeholder,
+  keyboardType,
   isPassword = false,
   autoCapitalize,
   stateFn,
 }) => {
   return (
     <Container
+      keyboardType={keyboardType}
       value={value}
       placeholder={placeholder}
       secureTextEntry={isPassword}
