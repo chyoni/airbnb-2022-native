@@ -1,5 +1,9 @@
 import React from "react";
-import { GestureResponderEvent, TouchableOpacity } from "react-native";
+import {
+  ActivityIndicator,
+  GestureResponderEvent,
+  TouchableOpacity,
+} from "react-native";
 import styled from "styled-components/native";
 import PropTypes from "prop-types";
 import { SCREEN_WIDTH } from "../../utils";
@@ -9,6 +13,7 @@ export interface IBtn {
   onPress: ((event: GestureResponderEvent) => void) | undefined;
   text: string;
   accent?: boolean;
+  loading?: boolean;
 }
 
 const Button = styled.View<IBtn>`
@@ -26,10 +31,19 @@ const Text = styled.Text<IBtn>`
   font-size: 14px;
 `;
 
-const Btn: React.FC<IBtn> = ({ onPress, text, accent = false }) => (
-  <TouchableOpacity onPress={onPress}>
+const Btn: React.FC<IBtn> = ({
+  onPress,
+  text,
+  accent = false,
+  loading = false,
+}) => (
+  <TouchableOpacity onPress={onPress} disabled={loading}>
     <Button accent={accent}>
-      <Text accent={accent}>{text}</Text>
+      {loading ? (
+        <ActivityIndicator color={accent ? "white" : "black"} />
+      ) : (
+        <Text accent={accent}>{text}</Text>
+      )}
     </Button>
   </TouchableOpacity>
 );

@@ -1,3 +1,4 @@
+import { StackScreenProps } from "@react-navigation/stack";
 import React, { useState } from "react";
 import {
   Keyboard,
@@ -9,6 +10,7 @@ import styled from "styled-components/native";
 import Btn from "../../components/Auth/Btn";
 import DismissKeyboard from "../../components/Auth/DismissKeyboard";
 import Input from "../../components/Auth/Input";
+import { AuthStackParamList } from "../../navigation/Auth";
 
 const Container = styled.View`
   flex: 1;
@@ -20,9 +22,11 @@ const InputContainer = styled.View`
   margin-bottom: 10px;
 `;
 
-export default () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+const SignIn: React.FC<StackScreenProps<AuthStackParamList, "SignIn">> = ({
+  route: { params },
+}) => {
+  const [username, setUsername] = useState(params?.email);
+  const [password, setPassword] = useState(params?.password);
   const handleSubmit = () => console.log(`${username}${password}`);
   const dismissKeyboard = () => Keyboard.dismiss();
   return (
@@ -50,3 +54,5 @@ export default () => {
     </DismissKeyboard>
   );
 };
+
+export default SignIn;

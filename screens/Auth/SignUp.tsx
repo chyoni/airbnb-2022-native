@@ -1,3 +1,4 @@
+import { StackScreenProps } from "@react-navigation/stack";
 import React, { useState } from "react";
 import { Alert } from "react-native";
 import { StatusBar, KeyboardAvoidingView } from "react-native";
@@ -6,6 +7,7 @@ import { createAccount } from "../../api";
 import Btn from "../../components/Auth/Btn";
 import DismissKeyboard from "../../components/Auth/DismissKeyboard";
 import Input from "../../components/Auth/Input";
+import { AuthStackParamList } from "../../navigation/Auth";
 import { isEmail } from "../../utils";
 
 const Container = styled.View`
@@ -18,11 +20,14 @@ const InputContainer = styled.View`
   margin-bottom: 10px;
 `;
 
-export default () => {
+const SignUp: React.FC<StackScreenProps<AuthStackParamList, "SignUp">> = ({
+  navigation,
+}) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const validateForm = (): boolean => {
     if (
       firstName === "" ||
@@ -42,8 +47,9 @@ export default () => {
   };
   const handleSubmit = async () => {
     if (!validateForm()) return;
-    console.log("is here?");
+
     try {
+      setLoading(true);
       const data = await createAccount({
         first_name: firstName,
         last_name: lastName,
@@ -51,9 +57,14 @@ export default () => {
         username: email,
         password,
       });
-      console.log(data?.status);
+      if (data?.status === 201) {
+        Alert.alert("Success", "Sign up completely!");
+        navigation.navigate("SignIn", { email, password });
+      }
     } catch (e) {
       console.error(e);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -89,9 +100,16 @@ export default () => {
               stateFn={setPassword}
             />
           </InputContainer>
-          <Btn text={"Sign In"} accent onPress={handleSubmit} />
+          <Btn
+            loading={loading}
+            text={"Sign In"}
+            accent
+            onPress={handleSubmit}
+          />
         </KeyboardAvoidingView>
       </Container>
     </DismissKeyboard>
   );
 };
+
+export default SignUp;

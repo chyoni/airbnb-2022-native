@@ -6,9 +6,9 @@ import SignIn from "../screens/Auth/SignIn";
 import BackBtn from "../components/Auth/BackBtn";
 
 export type AuthStackParamList = {
-  Welcome: undefined;
-  SignUp: undefined;
-  SignIn: undefined;
+  Welcome: any;
+  SignUp: any;
+  SignIn: any;
 };
 
 const Auth = createStackNavigator<AuthStackParamList>();
