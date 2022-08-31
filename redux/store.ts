@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { configureStore } from "@reduxjs/toolkit";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   persistStore,
   persistReducer,
@@ -9,11 +9,11 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
-import rootReducer from './rootReducer';
+} from "redux-persist";
+import rootReducer from "./rootReducer";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage: AsyncStorage,
 };
 
@@ -36,5 +36,7 @@ const store = configureStore({
 
 //! reducer뿐만 아니라 store도 persist하게 만들어줘야 햐기 때문에 이와 같이 작성
 export const persistor = persistStore(store);
+
+export type RootState = ReturnType<typeof store.getState>;
 
 export default store;

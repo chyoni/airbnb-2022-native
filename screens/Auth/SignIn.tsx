@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
   StatusBar,
   TouchableWithoutFeedback,
-} from 'react-native';
-import styled from 'styled-components/native';
-import Btn from '../../components/Auth/Btn';
-import DismissKeyboard from '../../components/Auth/DismissKeyboard';
-import Input from '../../components/Auth/Input';
+} from "react-native";
+import styled from "styled-components/native";
+import Btn from "../../components/Auth/Btn";
+import DismissKeyboard from "../../components/Auth/DismissKeyboard";
+import Input from "../../components/Auth/Input";
 
 const Container = styled.View`
   flex: 1;
@@ -21,30 +21,30 @@ const InputContainer = styled.View`
 `;
 
 export default () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const handleSubmit = () => alert(`${username}${password}`);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = () => console.log(`${username}${password}`);
   const dismissKeyboard = () => Keyboard.dismiss();
   return (
     <DismissKeyboard>
       <Container>
-        <StatusBar barStyle={'dark-content'} />
+        <StatusBar barStyle={"dark-content"} />
         <KeyboardAvoidingView behavior="position">
           <InputContainer>
             <Input
               value={username}
-              placeholder={'Username'}
-              autoCapitalize={'none'}
+              placeholder={"Username"}
+              autoCapitalize={"none"}
               stateFn={setUsername}
             />
             <Input
               value={password}
-              placeholder={'Password'}
+              placeholder={"Password"}
               isPassword
               stateFn={setPassword}
             />
           </InputContainer>
-          <Btn text={'Sign In'} accent onPress={handleSubmit} />
+          <Btn text={"Sign In"} accent onPress={handleSubmit} />
         </KeyboardAvoidingView>
       </Container>
     </DismissKeyboard>
