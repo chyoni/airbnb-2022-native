@@ -106,3 +106,5 @@
 - #17 Create account DONE
 
 - #18 Login api 1
+
+- #19 Login api 2 (get token by server)

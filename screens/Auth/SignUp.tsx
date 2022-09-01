@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Alert } from "react-native";
 import { StatusBar, KeyboardAvoidingView } from "react-native";
 import styled from "styled-components/native";
-import { createAccount } from "../../api";
+import api from "../../api";
 import Btn from "../../components/Auth/Btn";
 import DismissKeyboard from "../../components/Auth/DismissKeyboard";
 import Input from "../../components/Auth/Input";
@@ -50,7 +50,7 @@ const SignUp: React.FC<StackScreenProps<AuthStackParamList, "SignUp">> = ({
 
     try {
       setLoading(true);
-      const data = await createAccount({
+      const data = await api.createAccount({
         first_name: firstName,
         last_name: lastName,
         email,

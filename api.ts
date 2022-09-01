@@ -8,6 +8,11 @@ export interface ICreateAccount {
   password: string;
 }
 
+export interface ILogin {
+  username: string;
+  password: string;
+}
+
 const callApi = async (
   method: string,
   path: string,
@@ -35,6 +40,7 @@ const callApi = async (
   }
 };
 
-export const createAccount = (form: ICreateAccount) =>
-  callApi("post", "/users/", form);
-export const login = (form: any) => callApi("post", "/users/login", form);
+export default {
+  createAccount: (form: ICreateAccount) => callApi("post", "/users/", form),
+  login: (form: ILogin) => callApi("post", "/users/login/", form),
+};

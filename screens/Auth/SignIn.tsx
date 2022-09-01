@@ -7,11 +7,13 @@ import {
   StatusBar,
   TouchableWithoutFeedback,
 } from "react-native";
+import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
 import Btn from "../../components/Auth/Btn";
 import DismissKeyboard from "../../components/Auth/DismissKeyboard";
 import Input from "../../components/Auth/Input";
 import { AuthStackParamList } from "../../navigation/Auth";
+import { userLogin } from "../../redux/usersSlice";
 import { isEmail } from "../../utils";
 
 const Container = styled.View`
@@ -27,9 +29,10 @@ const InputContainer = styled.View`
 const SignIn: React.FC<StackScreenProps<AuthStackParamList, "SignIn">> = ({
   route: { params },
 }) => {
+  const dispatch = useDispatch<any>();
   const [email, setEmail] = useState(params?.email);
   const [password, setPassword] = useState(params?.password);
-  const isFormValid = () => {
+  const isFormValid = (): boolean => {
     if (email === "" || password === "") {
       Alert.alert("All fields are required.");
       return false;
@@ -38,11 +41,18 @@ const SignIn: React.FC<StackScreenProps<AuthStackParamList, "SignIn">> = ({
       Alert.alert("Email is invalid");
       return false;
     }
+    return true;
   };
   const handleSubmit = () => {
     if (!isFormValid()) {
       return;
     }
+    dispatch(
+      userLogin({
+        username: email,
+        password,
+      })
+    );
   };
   return (
     <DismissKeyboard>
