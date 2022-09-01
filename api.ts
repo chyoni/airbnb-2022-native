@@ -1,5 +1,13 @@
 import axios from "axios";
 
+export interface ICreateAccount {
+  first_name: string;
+  last_name: string;
+  email: string;
+  username: string;
+  password: string;
+}
+
 const callApi = async (
   method: string,
   path: string,
@@ -27,13 +35,6 @@ const callApi = async (
   }
 };
 
-export interface ICreateAccount {
-  first_name: string;
-  last_name: string;
-  email: string;
-  username: string;
-  password: string;
-}
-
 export const createAccount = (form: ICreateAccount) =>
   callApi("post", "/users/", form);
+export const login = (form: any) => callApi("post", "/users/login", form);

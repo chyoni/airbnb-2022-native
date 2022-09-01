@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { login } from "../api";
 
 export interface UserState {
   isLoggedIn: boolean;
@@ -24,4 +25,11 @@ const userSlice = createSlice({
 });
 
 export const { logIn, logOut } = userSlice.actions;
+export const userLogin = (form: any) => async (dispatch: any) => {
+  try {
+    const data = await login(form);
+  } catch (e) {
+    console.error(e);
+  }
+};
 export default userSlice.reducer;
