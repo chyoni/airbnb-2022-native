@@ -1,6 +1,7 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React, { useState } from "react";
 import {
+  Alert,
   Keyboard,
   KeyboardAvoidingView,
   StatusBar,
@@ -11,6 +12,7 @@ import Btn from "../../components/Auth/Btn";
 import DismissKeyboard from "../../components/Auth/DismissKeyboard";
 import Input from "../../components/Auth/Input";
 import { AuthStackParamList } from "../../navigation/Auth";
+import { isEmail } from "../../utils";
 
 const Container = styled.View`
   flex: 1;
@@ -25,10 +27,23 @@ const InputContainer = styled.View`
 const SignIn: React.FC<StackScreenProps<AuthStackParamList, "SignIn">> = ({
   route: { params },
 }) => {
-  const [username, setUsername] = useState(params?.email);
+  const [email, setEmail] = useState(params?.email);
   const [password, setPassword] = useState(params?.password);
-  const handleSubmit = () => console.log(`${username}${password}`);
-  const dismissKeyboard = () => Keyboard.dismiss();
+  const isFormValid = () => {
+    if (email === "" || password === "") {
+      Alert.alert("All fields are required.");
+      return false;
+    }
+    if (!isEmail(email)) {
+      Alert.alert("Email is invalid");
+      return false;
+    }
+  };
+  const handleSubmit = () => {
+    if (!isFormValid()) {
+      return;
+    }
+  };
   return (
     <DismissKeyboard>
       <Container>
@@ -36,10 +51,11 @@ const SignIn: React.FC<StackScreenProps<AuthStackParamList, "SignIn">> = ({
         <KeyboardAvoidingView behavior="position">
           <InputContainer>
             <Input
-              value={username}
-              placeholder={"Username"}
+              value={email}
+              placeholder={"Email"}
+              keyboardType={"email-address"}
               autoCapitalize={"none"}
-              stateFn={setUsername}
+              stateFn={setEmail}
             />
             <Input
               value={password}

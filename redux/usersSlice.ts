@@ -28,6 +28,7 @@ export const { logIn, logOut } = userSlice.actions;
 export const userLogin = (form: any) => async (dispatch: any) => {
   try {
     const data = await login(form);
+    // accept token and dispatch current user
   } catch (e) {
     console.error(e);
   }
