@@ -126,3 +126,5 @@
 - #25 Duplicated push removed
 
 - #26 Room card component
+
+- #27 Room card component 2

@@ -1,5 +1,5 @@
 import React from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, ScrollView } from "react-native";
 import styled from "styled-components/native";
 import colors from "../../../colors";
 import RoomCard from "../../../components/RoomCard";
@@ -20,13 +20,16 @@ const Text = styled.Text``;
 const ExplorePresenter: React.FC<ExplorePresenterProps> = ({ rooms }) => {
   console.log(rooms);
   return (
-    <Container>
+    <ScrollView
+      style={{ width: "100%" }}
+      contentContainerStyle={{ paddingHorizontal: 20 }}
+    >
       {rooms.length === 0 ? (
         <ActivityIndicator color={colors.black} size={8} />
       ) : (
         rooms.map((room) => <RoomCard key={room.id} room={room} />)
       )}
-    </Container>
+    </ScrollView>
   );
 };
 
