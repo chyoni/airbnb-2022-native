@@ -118,3 +118,5 @@
   ```
 
 - #22 Rooms slices
+
+- #23 Design pattern (Container / Presenter)

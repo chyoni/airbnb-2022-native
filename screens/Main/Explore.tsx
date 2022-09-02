@@ -1,5 +1,8 @@
 import React from "react";
+import { TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
+import { logOut } from "../../redux/usersSlice";
 
 const Container = styled.View`
   flex: 1;

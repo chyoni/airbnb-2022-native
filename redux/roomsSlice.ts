@@ -3,14 +3,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface RoomsState {
   explore: {
     page: number;
-    rooms: RoomType[];
+    rooms: RoomType[] | any;
   };
   favs: [];
 }
 
 export interface RoomType {
-  id?: number;
-  name?: string;
+  id?: number | any;
+  name?: string | any;
 }
 
 export interface ISetExploreRoomsPayload {

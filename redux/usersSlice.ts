@@ -38,7 +38,6 @@ export const userLogin =
         const token = res.data.token;
         dispatch(logIn({ token }));
       }
-      // accept token and dispatch current user
     } catch (e) {
       console.error(e);
     }
