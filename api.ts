@@ -16,7 +16,7 @@ export interface ILogin {
 const callApi = async (
   method: string,
   path: string,
-  data: any,
+  data?: any,
   jwt?: string
 ) => {
   let headers;
@@ -43,4 +43,5 @@ const callApi = async (
 export default {
   createAccount: (form: ICreateAccount) => callApi("post", "/users/", form),
   login: (form: ILogin) => callApi("post", "/users/login/", form),
+  rooms: (page: number) => callApi("get", `/rooms/?page=${page}`),
 };

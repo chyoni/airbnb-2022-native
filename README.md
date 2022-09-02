@@ -116,3 +116,5 @@
   ```bash
   npm install @react-navigation/bottom-tabs
   ```
+
+- #22 Rooms slices
