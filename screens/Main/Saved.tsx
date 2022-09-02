@@ -16,3 +16,5 @@ const Saved = () => {
     </Container>
   );
 };
+
+export default Saved;

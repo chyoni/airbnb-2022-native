@@ -110,3 +110,9 @@
 - #19 Login api 2 (get token by server)
 
 - #20 Login DONE
+
+- #21 Tab navigation
+
+  ```bash
+  npm install @react-navigation/bottom-tabs
+  ```

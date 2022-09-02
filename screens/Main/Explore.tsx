@@ -16,3 +16,5 @@ const Explore = () => {
     </Container>
   );
 };
+
+export default Explore;

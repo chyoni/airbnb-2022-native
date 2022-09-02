@@ -16,3 +16,5 @@ const Map = () => {
     </Container>
   );
 };
+
+export default Map;

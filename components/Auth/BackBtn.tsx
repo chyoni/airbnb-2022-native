@@ -1,9 +1,7 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import styled from 'styled-components/native';
-import { Ionicons } from '@expo/vector-icons';
-
-const isAndroid = Platform.OS === 'android';
+import React from "react";
+import styled from "styled-components/native";
+import { Ionicons } from "@expo/vector-icons";
+import { isAndroid } from "../../utils";
 
 const Container = styled.View`
   padding-left: 10px;
@@ -11,6 +9,9 @@ const Container = styled.View`
 
 export default () => (
   <Container>
-    <Ionicons name={isAndroid ? 'md-arrow-back' : 'ios-arrow-back'} size={24} />
+    <Ionicons
+      name={isAndroid() ? "md-arrow-back" : "ios-arrow-back"}
+      size={24}
+    />
   </Container>
 );
