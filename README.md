@@ -124,3 +124,5 @@
 - #24 Dispatch rooms
 
 - #25 Duplicated push removed
+
+- #26 Room card component

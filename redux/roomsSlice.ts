@@ -10,6 +10,13 @@ export interface RoomsState {
   favs: [];
 }
 
+export interface PhotoType {
+  id: number;
+  created: string;
+  modified: string;
+  file: string;
+}
+
 export interface RoomType {
   id: number;
   name: string;
@@ -26,6 +33,7 @@ export interface RoomType {
   check_out: string;
   instant_book: boolean;
   user: UserType;
+  photos?: PhotoType[];
 }
 
 export interface ISetExploreRoomsPayload {

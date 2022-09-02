@@ -16,8 +16,7 @@ const ExploreContainer: React.FC<IExploreContainerProps> = ({
   useEffect(() => {
     getRooms();
   }, []);
-  console.log(rooms, page);
-  return <ExplorePresenter />;
+  return <ExplorePresenter rooms={rooms} />;
 };
 
 export default ExploreContainer;
