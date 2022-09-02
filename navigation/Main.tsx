@@ -8,7 +8,14 @@ import colors from "../colors";
 import { Ionicons } from "@expo/vector-icons";
 import { isAndroid } from "../utils";
 
-const Main = createBottomTabNavigator();
+export type TabsChildrenParamList = {
+  Explore: undefined;
+  Saved: undefined;
+  Map: undefined;
+  Profile: undefined;
+};
+
+const Main = createBottomTabNavigator<TabsChildrenParamList>();
 
 export default () => (
   <Main.Navigator

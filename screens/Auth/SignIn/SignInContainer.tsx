@@ -1,17 +1,8 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React, { useState } from "react";
-import {
-  Alert,
-  Keyboard,
-  KeyboardAvoidingView,
-  StatusBar,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { Alert } from "react-native";
 import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
-import Btn from "../../../components/Auth/Btn";
-import DismissKeyboard from "../../../components/Auth/DismissKeyboard";
-import Input from "../../../components/Auth/Input";
 import { AuthStackParamList } from "../../../navigation/Auth";
 import { userLogin } from "../../../redux/usersSlice";
 import { isEmail } from "../../../utils";

@@ -12,9 +12,6 @@ import styled from "styled-components/native";
 import Btn from "../../../components/Auth/Btn";
 import DismissKeyboard from "../../../components/Auth/DismissKeyboard";
 import Input from "../../../components/Auth/Input";
-import { AuthStackParamList } from "../../../navigation/Auth";
-import { userLogin } from "../../../redux/usersSlice";
-import { isEmail } from "../../../utils";
 
 interface SignInProps {
   email: string;
