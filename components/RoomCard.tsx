@@ -1,12 +1,28 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
+import Swiper from "react-native-swiper";
 import styled from "styled-components/native";
 import colors from "../colors";
 import { RoomType } from "../redux/roomsSlice";
+import { SCREEN_HEIGHT } from "../utils";
 
 interface IRoomCardProps {
   room: RoomType;
 }
+
+const PhotoContainer = styled.View`
+  height: ${SCREEN_HEIGHT / 3}px;
+  width: 100%;
+  margin-bottom: 7px;
+`;
+const DefaultPhoto = styled.Image`
+  width: 100%;
+  height: 100%;
+`;
+const SlideImage = styled.Image`
+  width: 100%;
+  height: 100%;
+`;
 
 const RoomContainer = styled.View`
   flex: 1;
@@ -60,6 +76,26 @@ const PriceText = styled.Text`
 const RoomCard: React.FC<IRoomCardProps> = ({ room }) => {
   return (
     <RoomContainer>
+      <PhotoContainer>
+        {room.photos?.length === 0 ? (
+          <DefaultPhoto
+            resizeMode={"center"}
+            source={{
+              uri: "https://images.unsplash.com/photo-1521568277769-1284832c95be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2848&q=80",
+            }}
+          />
+        ) : (
+          <Swiper>
+            {room.photos?.map((photo) => (
+              <SlideImage
+                key={photo.id}
+                resizeMode={"center"}
+                source={{ uri: `${photo.file}` }}
+              />
+            ))}
+          </Swiper>
+        )}
+      </PhotoContainer>
       <UpperContainer>
         <RoomName>{room.name}</RoomName>
         <RateContainer>

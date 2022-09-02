@@ -128,3 +128,11 @@
 - #26 Room card component
 
 - #27 Room card component 2
+
+- #28 Room card component 3
+
+  React native swiper
+
+  ```bash
+  npm i --save react-native-swiper@next
+  ```

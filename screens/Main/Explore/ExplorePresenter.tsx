@@ -23,6 +23,7 @@ const ExplorePresenter: React.FC<ExplorePresenterProps> = ({ rooms }) => {
     <ScrollView
       style={{ width: "100%" }}
       contentContainerStyle={{ paddingHorizontal: 20 }}
+      showsVerticalScrollIndicator={false}
     >
       {rooms.length === 0 ? (
         <ActivityIndicator color={colors.black} size={8} />
