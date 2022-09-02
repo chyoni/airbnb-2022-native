@@ -122,3 +122,5 @@
 - #23 Design pattern (Container / Presenter)
 
 - #24 Dispatch rooms
+
+- #25 Duplicated push removed

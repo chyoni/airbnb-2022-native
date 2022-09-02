@@ -1,17 +1,31 @@
 import { Action, createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import api from "../api";
+import { UserType } from "./usersSlice";
 
 export interface RoomsState {
   explore: {
     page: number;
-    rooms: RoomType[] | any;
+    rooms: RoomType[];
   };
   favs: [];
 }
 
 export interface RoomType {
-  id?: number | any;
-  name?: string | any;
+  id: number;
+  name: string;
+  is_fav: boolean;
+  created: string;
+  address: string;
+  price: number;
+  beds: number;
+  lat: string;
+  lng: string;
+  bedrooms: number;
+  bathrooms: number;
+  check_in: string;
+  check_out: string;
+  instant_book: boolean;
+  user: UserType;
 }
 
 export interface ISetExploreRoomsPayload {
@@ -30,7 +44,14 @@ const roomsSlice = createSlice({
   } as RoomsState,
   reducers: {
     setExploreRooms(state, action: PayloadAction<ISetExploreRoomsPayload>) {
-      state.explore.rooms.push(action.payload.rooms as any);
+      action.payload.rooms.forEach((payloadRoom) => {
+        const exist = state.explore.rooms.find(
+          (room) => room.id === payloadRoom.id
+        );
+        if (!exist) {
+          state.explore.rooms.push(payloadRoom);
+        }
+      });
       state.explore.page = action.payload.page;
     },
   },

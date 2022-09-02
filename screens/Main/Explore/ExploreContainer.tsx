@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
+import { RoomType } from "../../../redux/roomsSlice";
 import ExplorePresenter from "./ExplorePresenter";
 
 interface IExploreContainerProps {
   getRooms: () => void;
-  rooms: [];
+  rooms: RoomType[];
   page: number;
 }
 

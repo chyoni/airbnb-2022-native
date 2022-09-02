@@ -11,6 +11,16 @@ export interface LoginPayload {
   token: string;
 }
 
+export interface UserType {
+  id: number;
+  email: string;
+  username: string;
+  first_name: string;
+  last_name?: string;
+  avatar?: string;
+  superhost: boolean;
+}
+
 const userSlice = createSlice({
   name: "users",
   initialState: {
