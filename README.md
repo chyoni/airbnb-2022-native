@@ -149,3 +149,5 @@
 - #31 My favs
 
 - #32 Toggle favs 1
+
+- #33 Favs screen 1

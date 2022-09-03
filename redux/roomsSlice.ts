@@ -7,7 +7,7 @@ export interface RoomsState {
     page: number;
     rooms: RoomType[];
   };
-  favs: [];
+  favs: RoomType[];
 }
 
 export interface PhotoType {
@@ -63,10 +63,13 @@ const roomsSlice = createSlice({
     increasePage(state) {
       state.explore.page += 1;
     },
+    setFavs(state, action: PayloadAction<RoomType[]>) {
+      state.favs = action.payload;
+    },
   },
 });
 
-export const { setExploreRooms, increasePage } = roomsSlice.actions;
+export const { setExploreRooms, increasePage, setFavs } = roomsSlice.actions;
 
 export const getRooms =
   (page: number) => async (dispatch: Dispatch<Action>) => {

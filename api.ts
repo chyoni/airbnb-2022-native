@@ -45,4 +45,6 @@ export default {
   login: (form: ILogin) => callApi('post', '/users/login/', form),
   rooms: (page: number = 1) => callApi('get', `/rooms/?page=${page}`),
   favs: (token: string) => callApi('get', `/users/me/favs/`, null, token),
+  toggleFavs: (roomId: number, token: string) =>
+    callApi('put', '/users/me/favs/', { pk: roomId }, token),
 };

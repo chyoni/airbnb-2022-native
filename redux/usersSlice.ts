@@ -4,6 +4,7 @@ import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'react';
 import api, { ILogin } from '../api';
 import { RootState } from './store';
+import { setFavs } from './roomsSlice';
 
 export interface UserState {
   isLoggedIn: boolean;
@@ -72,7 +73,10 @@ export const getFavs =
       const state = getState();
       const token = state.usersReducer.token;
       if (token) {
-        const data = await api.favs(token);
+        const res = await api.favs(token);
+        if (res?.status === 200) {
+          dispatch(setFavs(res.data));
+        }
       } else {
         Alert.alert('Please login');
         return;
@@ -84,11 +88,15 @@ export const getFavs =
 export const toggleFav =
   (roomId: number) =>
   async (dispatch: Dispatch<Action>, getState: () => RootState) => {
-    const state = getState();
-    const userId = state.usersReducer.id;
-    const token = state.usersReducer.token;
-    if (userId && token) {
-      console.log(userId, token, roomId);
+    try {
+      const state = getState();
+      const token = state.usersReducer.token;
+      if (roomId && token) {
+        const data = await api.toggleFavs(roomId, token);
+        console.log(data);
+      }
+    } catch (e) {
+      console.error(e);
     }
   };
 export default userSlice.reducer;
