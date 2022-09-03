@@ -1,6 +1,8 @@
-import { Action, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Dispatch } from "react";
-import api, { ILogin } from "../api";
+import axios from 'axios';
+import { Alert } from 'react-native';
+import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Dispatch } from 'react';
+import api, { ILogin } from '../api';
 
 export interface UserState {
   isLoggedIn: boolean;
@@ -22,7 +24,7 @@ export interface UserType {
 }
 
 const userSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState: {
     isLoggedIn: false,
     token: null,
@@ -49,7 +51,12 @@ export const userLogin =
         dispatch(logIn({ token }));
       }
     } catch (e) {
-      console.error(e);
+      if (axios.isAxiosError(e) && e.response) {
+        if (e.response.status === 401) {
+          Alert.alert('Username or Password wrong');
+          return;
+        }
+      }
     }
   };
 export default userSlice.reducer;

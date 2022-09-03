@@ -1,9 +1,9 @@
-import React from "react";
-import { ActivityIndicator, ScrollView } from "react-native";
-import styled from "styled-components/native";
-import colors from "../../../colors";
-import RoomCard from "../../../components/RoomCard";
-import { RoomType } from "../../../redux/roomsSlice";
+import React from 'react';
+import { ActivityIndicator, ScrollView } from 'react-native';
+import styled from 'styled-components/native';
+import colors from '../../../colors';
+import RoomCard from '../../../components/RoomCard';
+import { RoomType } from '../../../redux/roomsSlice';
 
 interface ExplorePresenterProps {
   rooms: RoomType[];
@@ -18,10 +18,9 @@ const Container = styled.View`
 const Text = styled.Text``;
 
 const ExplorePresenter: React.FC<ExplorePresenterProps> = ({ rooms }) => {
-  console.log(rooms);
   return (
     <ScrollView
-      style={{ width: "100%" }}
+      style={{ width: '100%' }}
       contentContainerStyle={{ paddingHorizontal: 20 }}
       showsVerticalScrollIndicator={false}
     >
