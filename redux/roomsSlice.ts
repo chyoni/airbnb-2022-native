@@ -1,3 +1,4 @@
+import { RootState } from './store';
 import { Action, createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
 import api from '../api';
 import { UserType } from './usersSlice';
@@ -72,9 +73,16 @@ const roomsSlice = createSlice({
 export const { setExploreRooms, increasePage, setFavs } = roomsSlice.actions;
 
 export const getRooms =
-  (page: number) => async (dispatch: Dispatch<Action>) => {
+  (page: number) =>
+  async (dispatch: Dispatch<Action>, getState: () => RootState) => {
     try {
-      const res = await api.rooms(page);
+      const token = getState().usersReducer.token;
+      let res = null;
+      if (token) {
+        res = await api.rooms(page, token);
+      } else {
+        res = await api.rooms(page);
+      }
       if (res?.status === 200 && res.data.results) {
         const rooms = res.data.results;
         dispatch(

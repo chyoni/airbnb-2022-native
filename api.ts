@@ -43,7 +43,8 @@ const callApi = async (
 export default {
   createAccount: (form: ICreateAccount) => callApi('post', '/users/', form),
   login: (form: ILogin) => callApi('post', '/users/login/', form),
-  rooms: (page: number = 1) => callApi('get', `/rooms/?page=${page}`),
+  rooms: (page: number = 1, token?: string) =>
+    callApi('get', `/rooms/?page=${page}`, null, token),
   favs: (token: string) => callApi('get', `/users/me/favs/`, null, token),
   toggleFavs: (roomId: number, token: string) =>
     callApi('put', '/users/me/favs/', { pk: roomId }, token),
