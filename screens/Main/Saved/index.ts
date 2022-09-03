@@ -1,7 +1,12 @@
+import { RootState } from './../../../redux/store';
 import { connect } from 'react-redux';
 import { Action, Dispatch } from 'redux';
 import { getFavs } from '../../../redux/usersSlice';
 import SavedContainer from './SavedContainer';
+
+function mapStateToProps(state: RootState) {
+  return { favs: state.roomsReducer.favs };
+}
 
 function mapDispatchToProps(dispatch: Dispatch<Action>) {
   return {
@@ -9,4 +14,4 @@ function mapDispatchToProps(dispatch: Dispatch<Action>) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(SavedContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SavedContainer);

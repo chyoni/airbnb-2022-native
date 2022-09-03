@@ -86,9 +86,9 @@ const RoomCard: React.FC<IRoomCardProps> = ({ room }) => {
       <TOpacity onPress={() => dispatch(toggleFav(room.id))}>
         <FavsButton>
           <Ionicons
-            name={isAndroid() ? 'md-heart-outline' : 'ios-heart-outline'}
-            size={18}
-            color={room.is_fav ? colors.red : undefined}
+            name={isAndroid() ? 'md-heart' : 'ios-heart'}
+            size={19}
+            color={room.is_fav ? colors.red : colors.gray}
           />
         </FavsButton>
       </TOpacity>
