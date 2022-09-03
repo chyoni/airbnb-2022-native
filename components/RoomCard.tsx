@@ -1,10 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import Swiper from 'react-native-swiper';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 import colors from '../colors';
 import { RoomType } from '../redux/roomsSlice';
-import { SCREEN_HEIGHT } from '../utils';
+import { toggleFav } from '../redux/usersSlice';
+import { isAndroid, SCREEN_HEIGHT } from '../utils';
 
 interface IRoomCardProps {
   room: RoomType;
@@ -22,6 +24,7 @@ const Photo = styled.ImageBackground`
 `;
 const RoomContainer = styled.View`
   flex: 1;
+  position: relative;
   margin-bottom: 20px;
 `;
 const UpperContainer = styled.View`
@@ -63,10 +66,32 @@ const PriceText = styled.Text`
   font-weight: 300;
   margin-left: 5px;
 `;
+const TOpacity = styled.TouchableOpacity`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 10;
+`;
+const FavsButton = styled.View`
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+`;
 
 const RoomCard: React.FC<IRoomCardProps> = ({ room }) => {
+  const dispatch = useDispatch<any>();
   return (
     <RoomContainer>
+      <TOpacity onPress={() => dispatch(toggleFav(room.id))}>
+        <FavsButton>
+          <Ionicons
+            name={isAndroid() ? 'md-heart-outline' : 'ios-heart-outline'}
+            size={18}
+            color={room.is_fav ? colors.red : undefined}
+          />
+        </FavsButton>
+      </TOpacity>
       <PhotoContainer>
         {room.photos?.length === 0 ? (
           <Photo

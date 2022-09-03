@@ -3,6 +3,7 @@ import { Alert, AppState } from 'react-native';
 import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'react';
 import api, { ILogin } from '../api';
+import { RootState } from './store';
 
 export interface UserState {
   isLoggedIn: boolean;
@@ -66,14 +67,28 @@ export const userLogin =
     }
   };
 export const getFavs =
-  () => async (dispatch: Dispatch<Action>, getState: any) => {
+  () => async (dispatch: Dispatch<Action>, getState: () => RootState) => {
     try {
       const state = getState();
       const token = state.usersReducer.token;
-      const data = await api.favs(token);
-      console.log(data);
+      if (token) {
+        const data = await api.favs(token);
+      } else {
+        Alert.alert('Please login');
+        return;
+      }
     } catch (e) {
       console.error(e);
+    }
+  };
+export const toggleFav =
+  (roomId: number) =>
+  async (dispatch: Dispatch<Action>, getState: () => RootState) => {
+    const state = getState();
+    const userId = state.usersReducer.id;
+    const token = state.usersReducer.token;
+    if (userId && token) {
+      console.log(userId, token, roomId);
     }
   };
 export default userSlice.reducer;

@@ -147,3 +147,5 @@
   ```
 
 - #31 My favs
+
+- #32 Toggle favs 1
