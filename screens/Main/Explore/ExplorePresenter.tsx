@@ -7,6 +7,7 @@ import { RoomType } from '../../../redux/roomsSlice';
 
 interface ExplorePresenterProps {
   rooms: RoomType[];
+  increasePage: () => void;
 }
 
 const Container = styled.View`
@@ -14,10 +15,13 @@ const Container = styled.View`
   justify-content: center;
   align-items: center;
 `;
-
+const MoreLoadBtn = styled.TouchableOpacity``;
 const Text = styled.Text``;
 
-const ExplorePresenter: React.FC<ExplorePresenterProps> = ({ rooms }) => {
+const ExplorePresenter: React.FC<ExplorePresenterProps> = ({
+  rooms,
+  increasePage,
+}) => {
   return (
     <ScrollView
       style={{ width: '100%' }}
@@ -29,6 +33,9 @@ const ExplorePresenter: React.FC<ExplorePresenterProps> = ({ rooms }) => {
       ) : (
         rooms.map((room) => <RoomCard key={room.id} room={room} />)
       )}
+      <MoreLoadBtn onPress={increasePage}>
+        <Text>Load more</Text>
+      </MoreLoadBtn>
     </ScrollView>
   );
 };

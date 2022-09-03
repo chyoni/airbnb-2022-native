@@ -136,3 +136,5 @@
   ```bash
   npm i --save react-native-swiper@next
   ```
+
+- #29 Load more rooms

@@ -1,12 +1,13 @@
-import { connect } from "react-redux";
-import { Action, Dispatch } from "redux";
-import { getRooms } from "../../../redux/roomsSlice";
-import { RootState } from "../../../redux/store";
-import ExploreContainer from "./ExploreContainer";
+import { connect } from 'react-redux';
+import { Action, Dispatch } from 'redux';
+import { getRooms, increasePage } from '../../../redux/roomsSlice';
+import { RootState } from '../../../redux/store';
+import ExploreContainer from './ExploreContainer';
 
 function mapDispatchToProps(dispatch: Dispatch<Action>) {
   return {
-    getRooms: () => dispatch<any>(getRooms()),
+    getRooms: (page: number) => dispatch<any>(getRooms(page)),
+    increasePage: () => dispatch<any>(increasePage()),
   };
 }
 

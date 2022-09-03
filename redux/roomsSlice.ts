@@ -1,6 +1,6 @@
-import { Action, createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
-import api from "../api";
-import { UserType } from "./usersSlice";
+import { Action, createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
+import api from '../api';
+import { UserType } from './usersSlice';
 
 export interface RoomsState {
   explore: {
@@ -38,11 +38,10 @@ export interface RoomType {
 
 export interface ISetExploreRoomsPayload {
   rooms: RoomType[];
-  page: number;
 }
 
 const roomsSlice = createSlice({
-  name: "rooms",
+  name: 'rooms',
   initialState: {
     explore: {
       page: 1,
@@ -60,26 +59,30 @@ const roomsSlice = createSlice({
           state.explore.rooms.push(payloadRoom);
         }
       });
-      state.explore.page = action.payload.page;
+    },
+    increasePage(state) {
+      state.explore.page += 1;
     },
   },
 });
 
-const { setExploreRooms } = roomsSlice.actions;
+export const { setExploreRooms, increasePage } = roomsSlice.actions;
 
-export const getRooms = () => async (dispatch: Dispatch<Action>) => {
-  try {
-    const res = await api.rooms();
-    if (res?.status === 200 && res.data.results) {
-      const rooms = res.data.results;
-      dispatch(
-        setExploreRooms({
-          rooms,
-          page: 1,
-        })
-      );
+export const getRooms =
+  (page: number) => async (dispatch: Dispatch<Action>) => {
+    try {
+      const res = await api.rooms(page);
+      if (res?.status === 200 && res.data.results) {
+        const rooms = res.data.results;
+        dispatch(
+          setExploreRooms({
+            rooms,
+          })
+        );
+      }
+    } catch (e) {
+      console.warn(e);
     }
-  } catch (e) {}
-};
+  };
 
 export default roomsSlice.reducer;
