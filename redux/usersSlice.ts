@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Alert } from 'react-native';
+import { Alert, AppState } from 'react-native';
 import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'react';
 import api, { ILogin } from '../api';
@@ -7,10 +7,12 @@ import api, { ILogin } from '../api';
 export interface UserState {
   isLoggedIn: boolean;
   token: string | null;
+  id: number | null;
 }
 
 export interface LoginPayload {
   token: string;
+  id: number;
 }
 
 export interface UserType {
@@ -28,15 +30,18 @@ const userSlice = createSlice({
   initialState: {
     isLoggedIn: false,
     token: null,
+    id: null,
   } as UserState,
   reducers: {
     logIn(state, action: PayloadAction<LoginPayload>) {
       state.isLoggedIn = true;
       state.token = action.payload.token;
+      state.id = action.payload.id;
     },
     logOut(state) {
       state.isLoggedIn = false;
       state.token = null;
+      state.id = null;
     },
   },
 });
@@ -48,7 +53,8 @@ export const userLogin =
       const res = await api.login(form);
       if (res?.data.token && res.status === 200) {
         const token = res.data.token;
-        dispatch(logIn({ token }));
+        const id = res.data.id;
+        dispatch(logIn({ token, id }));
       }
     } catch (e) {
       if (axios.isAxiosError(e) && e.response) {
@@ -57,6 +63,17 @@ export const userLogin =
           return;
         }
       }
+    }
+  };
+export const getFavs =
+  () => async (dispatch: Dispatch<Action>, getState: any) => {
+    try {
+      const state = getState();
+      const token = state.usersReducer.token;
+      const data = await api.favs(token);
+      console.log(data);
+    } catch (e) {
+      console.error(e);
     }
   };
 export default userSlice.reducer;

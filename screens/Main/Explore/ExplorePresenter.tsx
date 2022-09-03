@@ -15,8 +15,22 @@ const Container = styled.View`
   justify-content: center;
   align-items: center;
 `;
-const MoreLoadBtn = styled.TouchableOpacity``;
-const Text = styled.Text``;
+const MoreBtnContainer = styled.View`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+const MoreLoadBtn = styled.TouchableOpacity`
+  background-color: ${colors.green};
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+`;
+const Text = styled.Text`
+  color: white;
+  font-weight: 800;
+  font-size: 12px;
+`;
 
 const ExplorePresenter: React.FC<ExplorePresenterProps> = ({
   rooms,
@@ -33,9 +47,11 @@ const ExplorePresenter: React.FC<ExplorePresenterProps> = ({
       ) : (
         rooms.map((room) => <RoomCard key={room.id} room={room} />)
       )}
-      <MoreLoadBtn onPress={increasePage}>
-        <Text>Load more</Text>
-      </MoreLoadBtn>
+      <MoreBtnContainer>
+        <MoreLoadBtn onPress={increasePage}>
+          <Text>Load more</Text>
+        </MoreLoadBtn>
+      </MoreBtnContainer>
     </ScrollView>
   );
 };

@@ -22,7 +22,7 @@ const callApi = async (
   let headers;
   if (jwt) {
     headers = {
-      Authorization: jwt,
+      Authorization: `Bearer ${jwt}`,
       'Content-Type': 'application/json',
     };
   } else {
@@ -44,4 +44,5 @@ export default {
   createAccount: (form: ICreateAccount) => callApi('post', '/users/', form),
   login: (form: ILogin) => callApi('post', '/users/login/', form),
   rooms: (page: number = 1) => callApi('get', `/rooms/?page=${page}`),
+  favs: (token: string) => callApi('get', `/users/me/favs/`, null, token),
 };

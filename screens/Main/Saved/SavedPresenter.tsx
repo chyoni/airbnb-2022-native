@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components/native";
+import React from 'react';
+import styled from 'styled-components/native';
 
 const Container = styled.View`
   flex: 1;
@@ -9,7 +9,7 @@ const Container = styled.View`
 
 const Text = styled.Text``;
 
-const Saved = () => {
+const SavedPresenter = () => {
   return (
     <Container>
       <Text>Saved</Text>
@@ -17,4 +17,4 @@ const Saved = () => {
   );
 };
 
-export default Saved;
+export default SavedPresenter;

@@ -138,3 +138,12 @@
   ```
 
 - #29 Load more rooms
+
+- #30 Swiper change to react-native-web-swiper
+
+  ```bash
+  npm i react-native-web-swiper --save
+
+  ```
+
+- #31 My favs
