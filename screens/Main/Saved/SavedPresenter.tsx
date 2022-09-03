@@ -28,7 +28,6 @@ const Text = styled.Text`
 `;
 
 const SavedPresenter: React.FC<SavedPresenterProps> = ({ rooms }) => {
-  console.log(rooms);
   return (
     <Contaier>
       <Title>My favourites</Title>

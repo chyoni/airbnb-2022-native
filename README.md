@@ -155,3 +155,5 @@
 - #34 Favs screen 2
 
 - #35 Favs screen 3
+
+- #36 Favs DONE

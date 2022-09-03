@@ -4,7 +4,7 @@ import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'react';
 import api, { ILogin } from '../api';
 import { RootState } from './store';
-import { setFavs } from './roomsSlice';
+import { setExploreRooms, setFav, setFavs, getRooms } from './roomsSlice';
 
 export interface UserState {
   isLoggedIn: boolean;
@@ -92,8 +92,11 @@ export const toggleFav =
       const state = getState();
       const token = state.usersReducer.token;
       if (roomId && token) {
-        const data = await api.toggleFavs(roomId, token);
-        console.log(data);
+        const res = await api.toggleFavs(roomId, token);
+        if (res?.status === 200) {
+          dispatch(setFav({ roomId }));
+          getRooms(1);
+        }
       }
     } catch (e) {
       console.error(e);
