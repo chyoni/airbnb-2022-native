@@ -10,15 +10,16 @@ export interface IRoomPhotosProps {
   photos?: PhotoType[] | undefined;
   isModalScreen: boolean;
   room?: RoomType;
+  factor?: number;
 }
 
-const PhotoContainer = styled.View`
-  height: ${SCREEN_HEIGHT / 3}px;
+const PhotoContainer = styled.View<IRoomPhotosProps>`
+  height: ${(props) => `${SCREEN_HEIGHT / props.factor!}`}px;
   width: 100%;
   margin-bottom: 7px;
 `;
-const Photo = styled.ImageBackground`
-  height: ${SCREEN_HEIGHT / 3}px;
+const Photo = styled.ImageBackground<IRoomPhotosProps>`
+  height: ${(props) => `${SCREEN_HEIGHT / props.factor!}`}px;
   width: 100%;
   border-radius: 100px;
 `;
@@ -27,10 +28,11 @@ const RoomPhotos: React.FC<IRoomPhotosProps> = ({
   photos,
   isModalScreen,
   room,
+  factor = 3,
 }) => {
   const navigation = useNavigation<any>();
   return (
-    <PhotoContainer>
+    <PhotoContainer factor={factor}>
       {photos?.length === 0 ? (
         <TouchableOpacity
           onPress={
@@ -40,6 +42,7 @@ const RoomPhotos: React.FC<IRoomPhotosProps> = ({
           }
         >
           <Photo
+            factor={factor}
             imageStyle={{ borderRadius: 10 }}
             resizeMode={'cover'}
             source={{
@@ -64,6 +67,7 @@ const RoomPhotos: React.FC<IRoomPhotosProps> = ({
               }
             >
               <Photo
+                factor={factor}
                 imageStyle={{ borderRadius: 10 }}
                 resizeMode={'cover'}
                 source={{ uri: `${photo.file}` }}

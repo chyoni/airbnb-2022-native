@@ -163,3 +163,5 @@
 - #38 Room detail screen 1
 
 - #39 Room detail screen 2
+
+- #39 Room detail screen 3

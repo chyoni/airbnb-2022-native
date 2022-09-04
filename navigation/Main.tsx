@@ -11,6 +11,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Room from '../screens/Main/Room';
 import BackBtn from '../components/Auth/BackBtn';
 import { RoomType } from '../redux/roomsSlice';
+import { BlurView } from 'expo-blur';
+import { StyleSheet } from 'react-native';
 
 export type TabsChildrenParamList = {
   Explore: undefined;
@@ -82,6 +84,19 @@ export default () => (
       component={Tabs}
       options={{ headerShown: false }}
     />
-    <MainNavigator.Screen name={'Room'} component={Room} />
+    <MainNavigator.Screen
+      name={'Room'}
+      component={Room}
+      options={{
+        headerTransparent: true,
+        headerBackground: () => (
+          <BlurView
+            tint="light"
+            intensity={20}
+            style={StyleSheet.absoluteFill}
+          />
+        ),
+      }}
+    />
   </MainNavigator.Navigator>
 );

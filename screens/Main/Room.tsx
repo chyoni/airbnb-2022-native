@@ -17,7 +17,7 @@ const Room: React.FC<StackScreenProps<MainChildrenParamList, 'Room'>> = ({
   }, []);
   return (
     <ScrollView>
-      <RoomPhotos isModalScreen={true} photos={room.photos} />
+      <RoomPhotos isModalScreen={true} photos={room.photos} factor={2} />
     </ScrollView>
   );
 };
