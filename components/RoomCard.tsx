@@ -1,10 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import {
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
@@ -98,16 +95,20 @@ const RoomCard: React.FC<IRoomCardProps> = ({ room }) => {
           />
         </FavsButton>
       </TOpacity>
-      <TouchableWithoutFeedback onPress={() => navigation.navigate('Room')}>
+      <TouchableOpacity onPress={() => navigation.navigate('Room', { room })}>
         <PhotoContainer>
           {room.photos?.length === 0 ? (
-            <Photo
-              imageStyle={{ borderRadius: 10 }}
-              resizeMode={'cover'}
-              source={{
-                uri: 'https://images.unsplash.com/photo-1521568277769-1284832c95be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2848&q=80',
-              }}
-            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Room', { room })}
+            >
+              <Photo
+                imageStyle={{ borderRadius: 10 }}
+                resizeMode={'cover'}
+                source={{
+                  uri: 'https://images.unsplash.com/photo-1521568277769-1284832c95be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2848&q=80',
+                }}
+              />
+            </TouchableOpacity>
           ) : (
             <Swiper
               loop={false}
@@ -116,12 +117,16 @@ const RoomCard: React.FC<IRoomCardProps> = ({ room }) => {
               dotStyle={{ width: 5, height: 5 }}
             >
               {room.photos?.map((photo) => (
-                <Photo
-                  imageStyle={{ borderRadius: 10 }}
+                <TouchableOpacity
                   key={photo.id}
-                  resizeMode={'cover'}
-                  source={{ uri: `${photo.file}` }}
-                />
+                  onPress={() => navigation.navigate('Room', { room })}
+                >
+                  <Photo
+                    imageStyle={{ borderRadius: 10 }}
+                    resizeMode={'cover'}
+                    source={{ uri: `${photo.file}` }}
+                  />
+                </TouchableOpacity>
               ))}
             </Swiper>
           )}
@@ -140,7 +145,7 @@ const RoomCard: React.FC<IRoomCardProps> = ({ room }) => {
           <Price>$ {room.price}</Price>
           <PriceText>/ Night</PriceText>
         </PriceContainer>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     </RoomContainer>
   );
 };

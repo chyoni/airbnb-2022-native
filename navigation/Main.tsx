@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { isAndroid } from '../utils';
 import { createStackNavigator } from '@react-navigation/stack';
 import Room from '../screens/Main/Room';
+import BackBtn from '../components/Auth/BackBtn';
 
 export type TabsChildrenParamList = {
   Explore: undefined;
@@ -17,8 +18,13 @@ export type TabsChildrenParamList = {
   Profile: undefined;
 };
 
+export type MainChildrenParamList = {
+  Tabs: any;
+  Room: any;
+};
+
 const TabsNavigator = createBottomTabNavigator<TabsChildrenParamList>();
-const MainNavigator = createStackNavigator();
+const MainNavigator = createStackNavigator<MainChildrenParamList>();
 
 const Tabs = () => (
   <TabsNavigator.Navigator
@@ -62,9 +68,16 @@ const Tabs = () => (
 );
 
 export default () => (
-  <MainNavigator.Navigator>
+  <MainNavigator.Navigator
+    screenOptions={{
+      presentation: 'modal',
+      headerTintColor: colors.darkGray,
+      headerBackTitleVisible: false,
+      headerBackImage: () => <BackBtn />,
+    }}
+  >
     <MainNavigator.Screen
-      name={'tabs'}
+      name={'Tabs'}
       component={Tabs}
       options={{ headerShown: false }}
     />

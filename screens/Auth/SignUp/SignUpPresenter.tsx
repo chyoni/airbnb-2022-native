@@ -1,14 +1,9 @@
-import { StackScreenProps } from "@react-navigation/stack";
-import React, { useState } from "react";
-import { Alert } from "react-native";
-import { StatusBar, KeyboardAvoidingView } from "react-native";
-import styled from "styled-components/native";
-import api from "../../../api";
-import Btn from "../../../components/Auth/Btn";
-import DismissKeyboard from "../../../components/Auth/DismissKeyboard";
-import Input from "../../../components/Auth/Input";
-import { AuthStackParamList } from "../../../navigation/Auth";
-import { isEmail } from "../../../utils";
+import React from 'react';
+import { StatusBar, KeyboardAvoidingView } from 'react-native';
+import styled from 'styled-components/native';
+import Btn from '../../../components/Auth/Btn';
+import DismissKeyboard from '../../../components/Auth/DismissKeyboard';
+import Input from '../../../components/Auth/Input';
 
 interface ISignUpPresenterProps {
   firstName: string;
@@ -48,39 +43,39 @@ const SignUpPresenter: React.FC<ISignUpPresenterProps> = ({
   return (
     <DismissKeyboard>
       <Container>
-        <StatusBar barStyle={"dark-content"} />
+        <StatusBar barStyle={'dark-content'} />
         {/* KeyboardAvoidingView는 나타나는 keyboard로부터 component를 지키고 싶은 아이들을 감싸주면 됨 */}
         <KeyboardAvoidingView behavior="position">
           <InputContainer>
             <Input
               value={firstName}
-              placeholder={"FirstName"}
-              autoCapitalize={"words"}
+              placeholder={'FirstName'}
+              autoCapitalize={'words'}
               stateFn={setFirstName}
             />
             <Input
               value={lastName}
-              placeholder={"LastName"}
-              autoCapitalize={"words"}
+              placeholder={'LastName'}
+              autoCapitalize={'words'}
               stateFn={setLastName}
             />
             <Input
               keyboardType="email-address"
               value={email}
-              placeholder={"Email"}
-              autoCapitalize={"none"}
+              placeholder={'Email'}
+              autoCapitalize={'none'}
               stateFn={setEmail}
             />
             <Input
               value={password}
-              placeholder={"Password"}
+              placeholder={'Password'}
               isPassword
               stateFn={setPassword}
             />
           </InputContainer>
           <Btn
             loading={loading}
-            text={"Sign In"}
+            text={'Sign In'}
             accent
             onPress={handleSubmit}
           />

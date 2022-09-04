@@ -159,3 +159,5 @@
 - #36 Favs DONE
 
 - #37 Tabs and Stack
+
+- #38 Room detail screen 1
