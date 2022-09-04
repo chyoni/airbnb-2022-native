@@ -30,7 +30,7 @@ const Text = styled.Text`
 const SavedPresenter: React.FC<SavedPresenterProps> = ({ rooms }) => {
   return (
     <Contaier>
-      <Title>My favourites</Title>
+      <Title>My favourites ({rooms.length})</Title>
       <ScrollView
         style={{ width: '100%' }}
         contentContainerStyle={{ paddingHorizontal: 20 }}

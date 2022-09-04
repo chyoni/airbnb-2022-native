@@ -1,5 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
 import Swiper from 'react-native-swiper';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
@@ -81,6 +86,7 @@ const FavsButton = styled.View`
 
 const RoomCard: React.FC<IRoomCardProps> = ({ room }) => {
   const dispatch = useDispatch<any>();
+  const navigation = useNavigation<any>();
   return (
     <RoomContainer>
       <TOpacity onPress={() => dispatch(toggleFav(room.id))}>
@@ -92,47 +98,49 @@ const RoomCard: React.FC<IRoomCardProps> = ({ room }) => {
           />
         </FavsButton>
       </TOpacity>
-      <PhotoContainer>
-        {room.photos?.length === 0 ? (
-          <Photo
-            imageStyle={{ borderRadius: 10 }}
-            resizeMode={'cover'}
-            source={{
-              uri: 'https://images.unsplash.com/photo-1521568277769-1284832c95be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2848&q=80',
-            }}
-          />
-        ) : (
-          <Swiper
-            loop={false}
-            activeDotColor={'white'}
-            dotColor={'rgba(200, 200, 200, 0.8)'}
-            dotStyle={{ width: 5, height: 5 }}
-          >
-            {room.photos?.map((photo) => (
-              <Photo
-                imageStyle={{ borderRadius: 10 }}
-                key={photo.id}
-                resizeMode={'cover'}
-                source={{ uri: `${photo.file}` }}
-              />
-            ))}
-          </Swiper>
-        )}
-      </PhotoContainer>
-      <UpperContainer>
-        <RoomName>{room.name}</RoomName>
-        <RateContainer>
-          <Ionicons name={'star-sharp'} color={colors.gray} />
-          <Rated>5.0</Rated>
-        </RateContainer>
-      </UpperContainer>
-      <MiddleContainer>
-        <Address>{room.address}</Address>
-      </MiddleContainer>
-      <PriceContainer>
-        <Price>$ {room.price}</Price>
-        <PriceText>/ Night</PriceText>
-      </PriceContainer>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('Room')}>
+        <PhotoContainer>
+          {room.photos?.length === 0 ? (
+            <Photo
+              imageStyle={{ borderRadius: 10 }}
+              resizeMode={'cover'}
+              source={{
+                uri: 'https://images.unsplash.com/photo-1521568277769-1284832c95be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2848&q=80',
+              }}
+            />
+          ) : (
+            <Swiper
+              loop={false}
+              activeDotColor={'white'}
+              dotColor={'rgba(200, 200, 200, 0.8)'}
+              dotStyle={{ width: 5, height: 5 }}
+            >
+              {room.photos?.map((photo) => (
+                <Photo
+                  imageStyle={{ borderRadius: 10 }}
+                  key={photo.id}
+                  resizeMode={'cover'}
+                  source={{ uri: `${photo.file}` }}
+                />
+              ))}
+            </Swiper>
+          )}
+        </PhotoContainer>
+        <UpperContainer>
+          <RoomName>{room.name}</RoomName>
+          <RateContainer>
+            <Ionicons name={'star-sharp'} color={colors.gray} />
+            <Rated>5.0</Rated>
+          </RateContainer>
+        </UpperContainer>
+        <MiddleContainer>
+          <Address>{room.address}</Address>
+        </MiddleContainer>
+        <PriceContainer>
+          <Price>$ {room.price}</Price>
+          <PriceText>/ Night</PriceText>
+        </PriceContainer>
+      </TouchableWithoutFeedback>
     </RoomContainer>
   );
 };

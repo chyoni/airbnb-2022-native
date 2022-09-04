@@ -39,6 +39,7 @@ export interface RoomType {
 
 export interface ISetExploreRoomsPayload {
   rooms: RoomType[];
+  page?: number;
 }
 
 interface ISetFavPayload {
@@ -56,14 +57,13 @@ const roomsSlice = createSlice({
   } as RoomsState,
   reducers: {
     setExploreRooms(state, action: PayloadAction<ISetExploreRoomsPayload>) {
-      action.payload.rooms.forEach((payloadRoom) => {
-        const exist = state.explore.rooms.find(
-          (room) => room.id === payloadRoom.id
-        );
-        if (!exist) {
-          state.explore.rooms.push(payloadRoom);
-        }
-      });
+      const { payload } = action;
+      if (payload.page === 1) {
+        state.explore.rooms = payload.rooms;
+        state.explore.page = 1;
+      } else {
+        state.explore.rooms = [...state.explore.rooms, ...payload.rooms];
+      }
     },
     increasePage(state) {
       state.explore.page += 1;
@@ -108,6 +108,7 @@ export const getRooms =
         dispatch(
           setExploreRooms({
             rooms,
+            page,
           })
         );
       }

@@ -16,6 +16,9 @@ const ExploreContainer: React.FC<IExploreContainerProps> = ({
   page,
 }) => {
   useEffect(() => {
+    getRooms(1);
+  }, []);
+  useEffect(() => {
     getRooms(page);
   }, [page]);
   return <ExplorePresenter rooms={rooms} increasePage={increasePage} />;

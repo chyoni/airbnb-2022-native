@@ -7,6 +7,8 @@ import Saved from '../screens/Main/Saved';
 import colors from '../colors';
 import { Ionicons } from '@expo/vector-icons';
 import { isAndroid } from '../utils';
+import { createStackNavigator } from '@react-navigation/stack';
+import Room from '../screens/Main/Room';
 
 export type TabsChildrenParamList = {
   Explore: undefined;
@@ -15,10 +17,11 @@ export type TabsChildrenParamList = {
   Profile: undefined;
 };
 
-const Main = createBottomTabNavigator<TabsChildrenParamList>();
+const TabsNavigator = createBottomTabNavigator<TabsChildrenParamList>();
+const MainNavigator = createStackNavigator();
 
-export default () => (
-  <Main.Navigator
+const Tabs = () => (
+  <TabsNavigator.Navigator
     screenOptions={({ route }) => ({
       tabBarIcon: ({ focused }) => {
         let iconName = `${isAndroid() ? 'md-' : 'ios-'}`;
@@ -47,13 +50,24 @@ export default () => (
       },
     })}
   >
-    <Main.Screen name="Explore" component={Explore}></Main.Screen>
-    <Main.Screen
+    <TabsNavigator.Screen name="Explore" component={Explore} />
+    <TabsNavigator.Screen
       name="Saved"
       component={Saved}
       options={{ headerShown: false }}
-    ></Main.Screen>
-    <Main.Screen name="Map" component={Map}></Main.Screen>
-    <Main.Screen name="Profile" component={Profile}></Main.Screen>
-  </Main.Navigator>
+    />
+    <TabsNavigator.Screen name="Map" component={Map} />
+    <TabsNavigator.Screen name="Profile" component={Profile} />
+  </TabsNavigator.Navigator>
+);
+
+export default () => (
+  <MainNavigator.Navigator>
+    <MainNavigator.Screen
+      name={'tabs'}
+      component={Tabs}
+      options={{ headerShown: false }}
+    />
+    <MainNavigator.Screen name={'Room'} component={Room} />
+  </MainNavigator.Navigator>
 );

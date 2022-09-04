@@ -157,3 +157,5 @@
 - #35 Favs screen 3
 
 - #36 Favs DONE
+
+- #37 Tabs and Stack
