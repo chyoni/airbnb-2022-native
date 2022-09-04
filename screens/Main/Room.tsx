@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { StackScreenProps } from '@react-navigation/stack';
+import MapView from 'react-native-maps';
 import React, { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
@@ -33,7 +34,8 @@ const InfoText = styled.Text`
   color: white;
 `;
 const CheckTimeContainer = styled.View`
-  margin-top: 10px;
+  margin: 10px 0;
+  margin-bottom: 30px;
 `;
 const TitleBox = styled.View`
   flex: 1;
@@ -47,6 +49,11 @@ const CheckTimeTitle = styled.Text`
   color: ${colors.darkGray};
 `;
 const CheckTimeData = styled.Text``;
+const MapContainer = styled.View`
+  width: 100%;
+  height: 400px;
+`;
+
 function formatQuantities(number: number, name: string) {
   if (number === 1) {
     return `${number} ${name}`;
@@ -92,10 +99,13 @@ const Room: React.FC<StackScreenProps<MainChildrenParamList, 'Room'>> = ({
             <CheckTimeTitle>Check In / Check Out</CheckTimeTitle>
           </TitleBox>
           <CheckTimeData>
-            {formatTime(room.check_in)}'s clock / {formatTime(room.check_out)}'s
-            clock
+            {formatTime(room.check_in)}'s clock. / {formatTime(room.check_out)}
+            's clock.
           </CheckTimeData>
         </CheckTimeContainer>
+        <MapContainer>
+          <MapView style={{ width: '100%', height: '100%' }} />
+        </MapContainer>
       </Container>
     </ScrollView>
   );
