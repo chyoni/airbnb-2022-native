@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { StackScreenProps } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
 import { ScrollView } from 'react-native';
@@ -5,6 +6,7 @@ import styled from 'styled-components/native';
 import colors from '../../colors';
 import RoomPhotos from '../../components/RoomPhotos';
 import { MainChildrenParamList } from '../../navigation/Main';
+import { isAndroid } from '../../utils';
 
 const Container = styled.View`
   padding: 5px 10px;
@@ -14,7 +16,7 @@ const Address = styled.Text`
   font-size: 18px;
   font-weight: 600;
   color: ${colors.darkGray};
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 `;
 const InfoContainer = styled.View`
   flex-direction: row;
@@ -30,13 +32,31 @@ const InfoText = styled.Text`
   font-weight: 600;
   color: white;
 `;
-
+const CheckTimeContainer = styled.View`
+  margin-top: 10px;
+`;
+const TitleBox = styled.View`
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+`;
+const CheckTimeTitle = styled.Text`
+  margin-left: 7px;
+  font-size: 14px;
+  font-weight: 500;
+  color: ${colors.darkGray};
+`;
+const CheckTimeData = styled.Text``;
 function formatQuantities(number: number, name: string) {
   if (number === 1) {
     return `${number} ${name}`;
   } else {
     return `${number} ${name}s`;
   }
+}
+
+function formatTime(time: string) {
+  return time.split(':')[0];
 }
 
 const Room: React.FC<StackScreenProps<MainChildrenParamList, 'Room'>> = ({
@@ -63,6 +83,19 @@ const Room: React.FC<StackScreenProps<MainChildrenParamList, 'Room'>> = ({
             <InfoText>{formatQuantities(room.bathrooms, 'bathroom')}</InfoText>
           </InfoBox>
         </InfoContainer>
+        <CheckTimeContainer>
+          <TitleBox>
+            <Ionicons
+              name={isAndroid() ? 'md-timer-outline' : 'ios-timer-outline'}
+              size={25}
+            />
+            <CheckTimeTitle>Check In / Check Out</CheckTimeTitle>
+          </TitleBox>
+          <CheckTimeData>
+            {formatTime(room.check_in)}'s clock / {formatTime(room.check_out)}'s
+            clock
+          </CheckTimeData>
+        </CheckTimeContainer>
       </Container>
     </ScrollView>
   );
