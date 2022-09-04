@@ -16,6 +16,7 @@ export interface PhotoType {
   created: string;
   modified: string;
   file: string;
+  caption: string;
 }
 
 export interface RoomType {

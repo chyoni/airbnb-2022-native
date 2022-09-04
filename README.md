@@ -161,3 +161,5 @@
 - #37 Tabs and Stack
 
 - #38 Room detail screen 1
+
+- #39 Room detail screen 2

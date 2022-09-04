@@ -10,6 +10,7 @@ import { isAndroid } from '../utils';
 import { createStackNavigator } from '@react-navigation/stack';
 import Room from '../screens/Main/Room';
 import BackBtn from '../components/Auth/BackBtn';
+import { RoomType } from '../redux/roomsSlice';
 
 export type TabsChildrenParamList = {
   Explore: undefined;
@@ -20,7 +21,7 @@ export type TabsChildrenParamList = {
 
 export type MainChildrenParamList = {
   Tabs: any;
-  Room: any;
+  Room: { room: RoomType };
 };
 
 const TabsNavigator = createBottomTabNavigator<TabsChildrenParamList>();
