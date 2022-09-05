@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { isAndroid } from '../utils';
 import { createStackNavigator } from '@react-navigation/stack';
 import Room from '../screens/Main/Room';
+import Search from '../screens/Main/Search';
 import BackBtn from '../components/Auth/BackBtn';
 import { RoomType } from '../redux/roomsSlice';
 import { BlurView } from 'expo-blur';
@@ -24,6 +25,7 @@ export type TabsChildrenParamList = {
 export type MainChildrenParamList = {
   Tabs: any;
   Room: { room: RoomType };
+  Search: any;
 };
 
 const TabsNavigator = createBottomTabNavigator<TabsChildrenParamList>();
@@ -59,7 +61,11 @@ const Tabs = () => (
       },
     })}
   >
-    <TabsNavigator.Screen name="Explore" component={Explore} />
+    <TabsNavigator.Screen
+      name="Explore"
+      component={Explore}
+      options={{ headerShown: false }}
+    />
     <TabsNavigator.Screen
       name="Saved"
       component={Saved}
@@ -98,5 +104,6 @@ export default () => (
         ),
       }}
     />
+    <MainNavigator.Screen name={'Search'} component={Search} />
   </MainNavigator.Navigator>
 );
