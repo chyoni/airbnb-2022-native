@@ -1,8 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import { StackScreenProps } from '@react-navigation/stack';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import React, { useEffect } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import colors from '../../colors';
 import RoomPhotos from '../../components/RoomPhotos';
@@ -18,6 +18,14 @@ const Address = styled.Text`
   font-weight: 600;
   color: ${colors.darkGray};
   margin-bottom: 15px;
+`;
+const PriceBox = styled.View`
+  margin-bottom: 10px;
+`;
+const Price = styled.Text`
+  font-weight: 600;
+  font-size: 15px;
+  color: ${colors.darkGray};
 `;
 const InfoContainer = styled.View`
   flex-direction: row;
@@ -79,6 +87,9 @@ const Room: React.FC<StackScreenProps<MainChildrenParamList, 'Room'>> = ({
       <RoomPhotos isModalScreen={true} photos={room.photos} factor={2} />
       <Container>
         <Address>{room.address}</Address>
+        <PriceBox>
+          <Price>${room.price} / Night</Price>
+        </PriceBox>
         <InfoContainer>
           <InfoBox>
             <InfoText>{formatQuantities(room.beds, 'bed')}</InfoText>
@@ -104,7 +115,27 @@ const Room: React.FC<StackScreenProps<MainChildrenParamList, 'Room'>> = ({
           </CheckTimeData>
         </CheckTimeContainer>
         <MapContainer>
-          <MapView style={{ width: '100%', height: '100%' }} />
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            region={{
+              latitude: parseFloat(room.lat),
+              longitude: parseFloat(room.lng),
+              latitudeDelta: 0.004,
+              longitudeDelta: 0.004,
+            }}
+            style={{
+              width: '100%',
+              height: '100%',
+              ...StyleSheet.absoluteFillObject,
+            }}
+          >
+            <Marker
+              coordinate={{
+                latitude: parseFloat(room.lat),
+                longitude: parseFloat(room.lng),
+              }}
+            />
+          </MapView>
         </MapContainer>
       </Container>
     </ScrollView>

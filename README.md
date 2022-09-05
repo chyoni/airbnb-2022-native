@@ -175,3 +175,5 @@
   ```bash
   npm install react-native-maps
   ```
+
+- #43 Room detail screen 7
