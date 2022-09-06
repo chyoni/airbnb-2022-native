@@ -2,11 +2,26 @@ import React, { useState } from 'react';
 import { ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
+import api from '../../../api';
 import colors from '../../../colors';
+import { RoomType } from '../../../redux/roomsSlice';
 import { SCREEN_HEIGHT } from '../../../utils';
 
 export interface ISearchPresenterProps {
   goBack: () => void;
+  beds: number | undefined;
+  bedrooms: number | undefined;
+  bathrooms: number | undefined;
+  maxPrice: number | undefined;
+  minPrice: number | undefined;
+  search: (params: any) => any;
+  searchResult: RoomType[];
+  setBeds: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setBedrooms: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setBathrooms: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setMaxPrice: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setMinPrice: React.Dispatch<React.SetStateAction<number | undefined>>;
+  submit: () => Promise<void>;
 }
 
 const Container = styled.View``;
@@ -62,23 +77,22 @@ const SearchText = styled.Text`
   color: white;
 `;
 
-const SearchPresenter: React.FC<ISearchPresenterProps> = ({ goBack }) => {
-  const [beds, setBeds] = useState<number>();
-  const [bedrooms, setBedrooms] = useState<number>();
-  const [bathrooms, setBathrooms] = useState<number>();
-  const [maxPrice, setMaxPrice] = useState<number>();
-  const [minPrice, setMinPrice] = useState<number>();
-  const submit = () => {
-    // beds가 undefined이 아니라면, {} 안에 것을 spread해라.
-    const form = {
-      ...(beds && { beds: beds }),
-      ...(bedrooms && { bedrooms: bedrooms }),
-      ...(bathrooms && { bathrooms: bathrooms }),
-      ...(maxPrice && { max_price: maxPrice }),
-      ...(minPrice && { min_price: minPrice }),
-    };
-    console.log(form);
-  };
+const SearchPresenter: React.FC<ISearchPresenterProps> = ({
+  goBack,
+  beds,
+  bedrooms,
+  bathrooms,
+  maxPrice,
+  minPrice,
+  search,
+  searchResult,
+  setBeds,
+  setBedrooms,
+  setBathrooms,
+  setMaxPrice,
+  setMinPrice,
+  submit,
+}) => {
   return (
     <Container>
       <SearchBox>

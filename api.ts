@@ -17,7 +17,8 @@ const callApi = async (
   method: string,
   path: string,
   data?: any,
-  jwt?: string
+  jwt?: string,
+  params?: any
 ) => {
   let headers;
   if (jwt) {
@@ -34,6 +35,9 @@ const callApi = async (
   const fullUrl = `${baseUrl}${path}`;
 
   if (method === 'get' || method === 'delete') {
+    if (params) {
+      return axios[method](fullUrl, { headers, params });
+    }
     return axios[method](fullUrl, { headers });
   } else if (method === 'post' || method === 'put') {
     return axios[method](fullUrl, data, { headers });
@@ -48,4 +52,6 @@ export default {
   favs: (token: string) => callApi('get', `/users/me/favs/`, null, token),
   toggleFavs: (roomId: number, token: string) =>
     callApi('put', '/users/me/favs/', { pk: roomId }, token),
+  search: (params: any, token?: string) =>
+    callApi('get', '/rooms/search/', null, token, params),
 };

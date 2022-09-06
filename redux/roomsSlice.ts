@@ -9,6 +9,7 @@ export interface RoomsState {
     rooms: RoomType[];
   };
   favs: RoomType[];
+  searchResult: RoomType[];
 }
 
 export interface PhotoType {
@@ -55,6 +56,7 @@ const roomsSlice = createSlice({
       rooms: [],
     },
     favs: [],
+    searchResult: [],
   } as RoomsState,
   reducers: {
     setExploreRooms(state, action: PayloadAction<ISetExploreRoomsPayload>) {
@@ -87,10 +89,13 @@ const roomsSlice = createSlice({
         }
       }
     },
+    search(state, action: PayloadAction<RoomType[]>) {
+      state.searchResult = action.payload;
+    },
   },
 });
 
-export const { setExploreRooms, increasePage, setFavs, setFav } =
+export const { setExploreRooms, increasePage, setFavs, setFav, search } =
   roomsSlice.actions;
 
 export const getRooms =
@@ -115,6 +120,27 @@ export const getRooms =
       }
     } catch (e) {
       console.warn(e);
+    }
+  };
+
+export const searchRooms =
+  (params: any) =>
+  async (dispatch: Dispatch<Action>, getState: () => RootState) => {
+    try {
+      const token = getState().usersReducer.token;
+      let res = null;
+      if (token) {
+        res = await api.search(params, token);
+      } else {
+        res = await api.search(params);
+      }
+
+      if (res?.status === 200) {
+        console.log(res.data);
+        // TODO: dispatch
+      }
+    } catch (e) {
+      console.error(e);
     }
   };
 
