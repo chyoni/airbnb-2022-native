@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { StackScreenProps } from '@react-navigation/stack';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps';
 import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
@@ -116,7 +116,7 @@ const Room: React.FC<StackScreenProps<MainChildrenParamList, 'Room'>> = ({
         </CheckTimeContainer>
         <MapContainer>
           <MapView
-            provider={PROVIDER_GOOGLE}
+            provider={PROVIDER_DEFAULT}
             region={{
               latitude: parseFloat(room.lat),
               longitude: parseFloat(room.lng),
