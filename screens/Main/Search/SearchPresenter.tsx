@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import { ScrollView } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import styled from 'styled-components/native';
-import api from '../../../api';
-import colors from '../../../colors';
-import { RoomType } from '../../../redux/roomsSlice';
-import { SCREEN_HEIGHT } from '../../../utils';
+import React from "react";
+import { ActivityIndicator, ScrollView } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import styled from "styled-components/native";
+import colors from "../../../colors";
+import RoomCard from "../../../components/RoomCard";
+import { RoomType } from "../../../redux/roomsSlice";
+import { SCREEN_HEIGHT } from "../../../utils";
 
 export interface ISearchPresenterProps {
   goBack: () => void;
+  loading: boolean;
   beds: number | undefined;
   bedrooms: number | undefined;
   bathrooms: number | undefined;
   maxPrice: number | undefined;
   minPrice: number | undefined;
   search: (params: any) => any;
-  searchResult: RoomType[];
+  displayResult: RoomType[];
   setBeds: React.Dispatch<React.SetStateAction<number | undefined>>;
   setBedrooms: React.Dispatch<React.SetStateAction<number | undefined>>;
   setBathrooms: React.Dispatch<React.SetStateAction<number | undefined>>;
@@ -65,7 +66,7 @@ const Filter = styled.TextInput`
 `;
 const SearchContainer = styled.View`
   width: 100%;
-  padding: 15px 10px;
+  padding: 13px 10px;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
@@ -74,18 +75,20 @@ const SearchContainer = styled.View`
 const SearchText = styled.Text`
   font-size: 15px;
   font-weight: 600;
+  text-align: center;
   color: white;
 `;
 
 const SearchPresenter: React.FC<ISearchPresenterProps> = ({
   goBack,
+  loading,
   beds,
   bedrooms,
   bathrooms,
   maxPrice,
   minPrice,
+  displayResult,
   search,
-  searchResult,
   setBeds,
   setBedrooms,
   setBathrooms,
@@ -96,7 +99,7 @@ const SearchPresenter: React.FC<ISearchPresenterProps> = ({
   return (
     <Container>
       <SearchBox>
-        <SearchTextInput autoFocus={true} placeholder={'Search by city...'} />
+        <SearchTextInput autoFocus={true} placeholder={"Search by city..."} />
         <TouchableOpacity
           onPress={goBack}
           style={{ padding: 10, backgroundColor: colors.red, borderRadius: 10 }}
@@ -107,54 +110,77 @@ const SearchPresenter: React.FC<ISearchPresenterProps> = ({
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 10 }}
+        contentContainerStyle={{
+          paddingVertical: 10,
+          paddingHorizontal: 10,
+          paddingBottom: 30,
+        }}
       >
         <FilterContainer>
           <FilterLabel>Beds</FilterLabel>
           <Filter
-            placeholder={'0'}
-            keyboardType={'number-pad'}
+            placeholder={"0"}
+            keyboardType={"number-pad"}
             onChangeText={(text: number) => setBeds(text)}
           />
         </FilterContainer>
         <FilterContainer>
           <FilterLabel>Bedrooms</FilterLabel>
           <Filter
-            placeholder={'0'}
-            keyboardType={'number-pad'}
+            placeholder={"0"}
+            keyboardType={"number-pad"}
             onChangeText={(text: number) => setBedrooms(text)}
           />
         </FilterContainer>
         <FilterContainer>
           <FilterLabel>Bathrooms</FilterLabel>
           <Filter
-            placeholder={'0'}
-            keyboardType={'number-pad'}
+            placeholder={"0"}
+            keyboardType={"number-pad"}
             onChangeText={(text: number) => setBathrooms(text)}
           />
         </FilterContainer>
         <FilterContainer>
           <FilterLabel>Max. price</FilterLabel>
           <Filter
-            placeholder={'$0'}
-            keyboardType={'number-pad'}
+            placeholder={"$0"}
+            keyboardType={"number-pad"}
             onChangeText={(text: number) => setMaxPrice(text)}
           />
         </FilterContainer>
         <FilterContainer>
           <FilterLabel>Min. price</FilterLabel>
           <Filter
-            placeholder={'$0'}
-            keyboardType={'number-pad'}
+            placeholder={"$0"}
+            keyboardType={"number-pad"}
             onChangeText={(text: number) => setMinPrice(text)}
           />
         </FilterContainer>
       </ScrollView>
-      <TouchableOpacity onPress={submit} style={{ paddingHorizontal: 10 }}>
+      <TouchableOpacity
+        onPress={submit}
+        style={{
+          paddingHorizontal: 10,
+        }}
+      >
         <SearchContainer>
-          <SearchText>Search</SearchText>
+          <SearchText>
+            {loading ? (
+              <ActivityIndicator color={"white"} size={"small"} />
+            ) : (
+              "Search"
+            )}
+          </SearchText>
         </SearchContainer>
       </TouchableOpacity>
+      <ScrollView
+        style={{ width: "100%", marginTop: 10 }}
+        contentContainerStyle={{ paddingHorizontal: 20, paddingVertical: 10 }}
+      >
+        {displayResult.length > 0
+          ? displayResult.map((room) => <RoomCard key={room.id} room={room} />)
+          : null}
+      </ScrollView>
     </Container>
   );
 };

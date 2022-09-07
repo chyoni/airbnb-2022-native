@@ -1,7 +1,7 @@
-import { RootState } from './store';
-import { Action, createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
-import api from '../api';
-import { UserType } from './usersSlice';
+import { RootState } from "./store";
+import { Action, createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import api from "../api";
+import { UserType } from "./usersSlice";
 
 export interface RoomsState {
   explore: {
@@ -49,7 +49,7 @@ interface ISetFavPayload {
 }
 
 const roomsSlice = createSlice({
-  name: 'rooms',
+  name: "rooms",
   initialState: {
     explore: {
       page: 1,
@@ -89,14 +89,23 @@ const roomsSlice = createSlice({
         }
       }
     },
-    search(state, action: PayloadAction<RoomType[]>) {
+    setSearch(state, action: PayloadAction<RoomType[]>) {
       state.searchResult = action.payload;
+    },
+    setClearSearch(state) {
+      state.searchResult = [];
     },
   },
 });
 
-export const { setExploreRooms, increasePage, setFavs, setFav, search } =
-  roomsSlice.actions;
+export const {
+  setExploreRooms,
+  increasePage,
+  setFavs,
+  setFav,
+  setSearch,
+  setClearSearch,
+} = roomsSlice.actions;
 
 export const getRooms =
   (page: number) =>
@@ -136,12 +145,19 @@ export const searchRooms =
       }
 
       if (res?.status === 200) {
-        console.log(res.data);
-        // TODO: dispatch
+        dispatch(setSearch(res.data.results));
       }
     } catch (e) {
       console.error(e);
     }
   };
+
+export const clearSearchRooms = () => async (dispatch: Dispatch<Action>) => {
+  try {
+    dispatch(setClearSearch());
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 export default roomsSlice.reducer;
