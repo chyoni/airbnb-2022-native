@@ -1,8 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import { StackScreenProps } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
-import { MainChildrenParamList } from "../../../navigation/Main";
-import { clearSearchRooms, RoomType } from "../../../redux/roomsSlice";
+import { RoomType } from "../../../redux/roomsSlice";
 import SearchPresenter from "./SearchPresenter";
 
 interface ISearchContainerProps {
@@ -50,13 +48,7 @@ const SearchContainer: React.FC<ISearchContainerProps> = ({
     <SearchPresenter
       goBack={goBack}
       loading={loading}
-      beds={beds}
-      bedrooms={bedrooms}
-      bathrooms={bathrooms}
-      maxPrice={maxPrice}
-      minPrice={minPrice}
       displayResult={displayResult}
-      search={searchRooms}
       setBeds={setBeds}
       setBedrooms={setBedrooms}
       setBathrooms={setBathrooms}

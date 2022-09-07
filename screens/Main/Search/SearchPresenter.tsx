@@ -10,12 +10,6 @@ import { SCREEN_HEIGHT } from "../../../utils";
 export interface ISearchPresenterProps {
   goBack: () => void;
   loading: boolean;
-  beds: number | undefined;
-  bedrooms: number | undefined;
-  bathrooms: number | undefined;
-  maxPrice: number | undefined;
-  minPrice: number | undefined;
-  search: (params: any) => any;
   displayResult: RoomType[];
   setBeds: React.Dispatch<React.SetStateAction<number | undefined>>;
   setBedrooms: React.Dispatch<React.SetStateAction<number | undefined>>;
@@ -82,13 +76,7 @@ const SearchText = styled.Text`
 const SearchPresenter: React.FC<ISearchPresenterProps> = ({
   goBack,
   loading,
-  beds,
-  bedrooms,
-  bathrooms,
-  maxPrice,
-  minPrice,
   displayResult,
-  search,
   setBeds,
   setBedrooms,
   setBathrooms,
