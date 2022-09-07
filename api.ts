@@ -54,4 +54,5 @@ export default {
     callApi("put", "/users/me/favs/", { pk: roomId }, token),
   search: (params: any, token?: string) =>
     callApi("get", "/rooms/search/", null, token, params),
+  me: (token: string) => callApi("get", "/users/me/", null, token, null),
 };

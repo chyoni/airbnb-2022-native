@@ -1,15 +1,16 @@
-import axios from 'axios';
-import { Alert, AppState } from 'react-native';
-import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Dispatch } from 'react';
-import api, { ILogin } from '../api';
-import { RootState } from './store';
-import { setExploreRooms, setFav, setFavs, getRooms } from './roomsSlice';
+import axios from "axios";
+import { Alert, AppState } from "react-native";
+import { Action, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Dispatch } from "react";
+import api, { ILogin } from "../api";
+import { RootState } from "./store";
+import { setExploreRooms, setFav, setFavs, getRooms } from "./roomsSlice";
 
 export interface UserState {
   isLoggedIn: boolean;
   token: string | null;
   id: number | null;
+  me: UserType | null;
 }
 
 export interface LoginPayload {
@@ -28,11 +29,12 @@ export interface UserType {
 }
 
 const userSlice = createSlice({
-  name: 'users',
+  name: "users",
   initialState: {
     isLoggedIn: false,
     token: null,
     id: null,
+    me: null,
   } as UserState,
   reducers: {
     logIn(state, action: PayloadAction<LoginPayload>) {
@@ -45,10 +47,13 @@ const userSlice = createSlice({
       state.token = null;
       state.id = null;
     },
+    setMe(state, action: PayloadAction<UserType>) {
+      state.me = action.payload;
+    },
   },
 });
 
-export const { logIn, logOut } = userSlice.actions;
+export const { logIn, logOut, setMe } = userSlice.actions;
 export const userLogin =
   (form: ILogin) => async (dispatch: Dispatch<Action>) => {
     try {
@@ -61,7 +66,7 @@ export const userLogin =
     } catch (e) {
       if (axios.isAxiosError(e) && e.response) {
         if (e.response.status === 401) {
-          Alert.alert('Username or Password wrong');
+          Alert.alert("Username or Password wrong");
           return;
         }
       }
@@ -78,7 +83,7 @@ export const getFavs =
           dispatch(setFavs(res.data));
         }
       } else {
-        Alert.alert('Please login');
+        Alert.alert("Please login");
         return;
       }
     } catch (e) {
@@ -96,6 +101,21 @@ export const toggleFav =
         if (res?.status === 200) {
           dispatch(setFav({ roomId }));
           getRooms(1);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+export const getMe =
+  () => async (dispatch: Dispatch<Action>, getState: () => RootState) => {
+    try {
+      const state = getState();
+      const token = state.usersReducer.token;
+      if (token) {
+        const res = await api.me(token);
+        if (res?.status === 200 && res.data) {
+          dispatch(setMe(res.data));
         }
       }
     } catch (e) {
