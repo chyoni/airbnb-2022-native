@@ -189,3 +189,5 @@
 - #48 Search DONE
 
 - #49 Profile 1
+
+- #50 Profile DONE

@@ -26,6 +26,7 @@ export interface UserType {
   last_name?: string;
   avatar?: string;
   superhost: boolean;
+  date_joined: string;
 }
 
 const userSlice = createSlice({
