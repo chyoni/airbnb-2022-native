@@ -13,6 +13,12 @@ export interface ILogin {
   password: string;
 }
 
+export interface IPartialUpdate {
+  bio?: string;
+  address?: string;
+  job?: string;
+}
+
 const callApi = async (
   method: string,
   path: string,
@@ -55,6 +61,6 @@ export default {
   search: (params: any, token?: string) =>
     callApi("get", "/rooms/search/", null, token, params),
   me: (token: string) => callApi("get", "/users/me/", null, token, null),
-  editPartial: (form: any, token: string) =>
+  editPartial: (form: IPartialUpdate, token: string) =>
     callApi("put", "/users/me/", form, token, null),
 };

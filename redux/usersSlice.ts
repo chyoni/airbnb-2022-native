@@ -2,7 +2,7 @@ import axios from "axios";
 import { Alert, AppState } from "react-native";
 import { Action, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Dispatch } from "react";
-import api, { ILogin } from "../api";
+import api, { ILogin, IPartialUpdate } from "../api";
 import { RootState } from "./store";
 import { setExploreRooms, setFav, setFavs, getRooms } from "./roomsSlice";
 
@@ -32,6 +32,13 @@ export interface UserType {
   date_joined: string;
 }
 
+export interface UserPartialPayload {
+  avatar?: string;
+  bio?: string;
+  address?: string;
+  job?: string;
+}
+
 const userSlice = createSlice({
   name: "users",
   initialState: {
@@ -54,10 +61,16 @@ const userSlice = createSlice({
     setMe(state, action: PayloadAction<UserType>) {
       state.me = action.payload;
     },
+    setPartial(state, action: PayloadAction<UserPartialPayload>) {
+      const payloads = action.payload;
+      if (state.me) {
+        state.me = { ...state.me, ...payloads };
+      }
+    },
   },
 });
 
-export const { logIn, logOut, setMe } = userSlice.actions;
+export const { logIn, logOut, setMe, setPartial } = userSlice.actions;
 export const userLogin =
   (form: ILogin) => async (dispatch: Dispatch<Action>) => {
     try {
@@ -127,16 +140,17 @@ export const getMe =
     }
   };
 export const editPartial =
-  (form: any) =>
+  (form: IPartialUpdate) =>
   async (dispatch: Dispatch<Action>, getState: () => RootState) => {
     try {
       const state = getState();
       const token = state.usersReducer.token;
       if (token) {
         const res = await api.editPartial(form, token);
-        console.log(res);
 
-        // TODO: dispatch
+        if (res?.status === 200 && res.data) {
+          dispatch(setPartial(res.data));
+        }
       }
     } catch (e) {
       console.error(e);
