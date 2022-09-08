@@ -191,3 +191,5 @@
 - #49 Profile 1
 
 - #50 Profile DONE
+
+- #51 Edit profile 1

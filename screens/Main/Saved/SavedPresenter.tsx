@@ -1,18 +1,19 @@
-import React from 'react';
-import { ScrollView } from 'react-native';
-import styled from 'styled-components/native';
-import colors from '../../../colors';
-import RoomCard from '../../../components/RoomCard';
-import { RoomType } from '../../../redux/roomsSlice';
+import React from "react";
+import { ScrollView } from "react-native";
+import styled from "styled-components/native";
+import colors from "../../../colors";
+import RoomCard from "../../../components/RoomCard";
+import { RoomType } from "../../../redux/roomsSlice";
 
 interface SavedPresenterProps {
   rooms: RoomType[];
 }
 const Contaier = styled.View`
-  margin-top: 60px;
+  margin-top: 30px;
 `;
 const Title = styled.Text`
   font-size: 25px;
+  margin-bottom: 10px;
   font-weight: 600;
   color: ${colors.darkGray};
   padding: 8px 8px;
@@ -32,7 +33,7 @@ const SavedPresenter: React.FC<SavedPresenterProps> = ({ rooms }) => {
     <Contaier>
       <Title>My favourites ({rooms.length})</Title>
       <ScrollView
-        style={{ width: '100%' }}
+        style={{ width: "100%" }}
         contentContainerStyle={{ paddingHorizontal: 20 }}
         showsVerticalScrollIndicator={false}
       >

@@ -10,10 +10,12 @@ import { isAndroid } from "../utils";
 import { createStackNavigator } from "@react-navigation/stack";
 import Room from "../screens/Main/Room";
 import Search from "../screens/Main/Search";
+import EditProfile from "../screens/Main/EditProfile";
 import BackBtn from "../components/Auth/BackBtn";
 import { RoomType } from "../redux/roomsSlice";
 import { BlurView } from "expo-blur";
 import { StyleSheet } from "react-native";
+import EditPartial from "../screens/Main/EditProfile/EditPartial";
 
 export type TabsChildrenParamList = {
   Explore: undefined;
@@ -26,6 +28,8 @@ export type MainChildrenParamList = {
   Tabs: any;
   Room: { room: RoomType };
   Search: any;
+  EditProfile: any;
+  EditPartial: { label: string };
 };
 
 const TabsNavigator = createBottomTabNavigator<TabsChildrenParamList>();
@@ -72,7 +76,11 @@ const Tabs = () => (
       options={{ headerShown: false }}
     />
     <TabsNavigator.Screen name="Map" component={Map} />
-    <TabsNavigator.Screen name="Profile" component={Profile} />
+    <TabsNavigator.Screen
+      name="Profile"
+      component={Profile}
+      options={{ tabBarLabel: "Profile" }}
+    />
   </TabsNavigator.Navigator>
 );
 
@@ -109,5 +117,20 @@ export default () => (
       component={Search}
       options={{ headerShown: false }}
     />
+    <MainNavigator.Screen
+      name={"EditProfile"}
+      component={EditProfile}
+      options={{
+        headerTitle: "Edit profile",
+        headerBackImage: () => (
+          <Ionicons
+            style={{ paddingHorizontal: 15 }}
+            name={isAndroid() ? "md-close-sharp" : "ios-close-sharp"}
+            size={23}
+          />
+        ),
+      }}
+    />
+    <MainNavigator.Screen name={"EditPartial"} component={EditPartial} />
   </MainNavigator.Navigator>
 );

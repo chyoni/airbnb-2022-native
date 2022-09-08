@@ -55,4 +55,6 @@ export default {
   search: (params: any, token?: string) =>
     callApi("get", "/rooms/search/", null, token, params),
   me: (token: string) => callApi("get", "/users/me/", null, token, null),
+  editPartial: (form: any, token: string) =>
+    callApi("put", "/users/me/", form, token, null),
 };

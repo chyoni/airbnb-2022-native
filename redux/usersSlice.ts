@@ -25,6 +25,9 @@ export interface UserType {
   first_name: string;
   last_name?: string;
   avatar?: string;
+  bio?: string;
+  address?: string;
+  job?: string;
   superhost: boolean;
   date_joined: string;
 }
@@ -118,6 +121,22 @@ export const getMe =
         if (res?.status === 200 && res.data) {
           dispatch(setMe(res.data));
         }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+export const editPartial =
+  (form: any) =>
+  async (dispatch: Dispatch<Action>, getState: () => RootState) => {
+    try {
+      const state = getState();
+      const token = state.usersReducer.token;
+      if (token) {
+        const res = await api.editPartial(form, token);
+        console.log(res);
+
+        // TODO: dispatch
       }
     } catch (e) {
       console.error(e);
