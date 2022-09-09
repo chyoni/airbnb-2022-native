@@ -54,6 +54,39 @@ const RoomPrice = styled.Text`
   font-size: 11px;
   font-weight: 600;
 `;
+const MarkerWrapper = styled.View`
+  align-items: center;
+`;
+const MarkerContainer = styled.View<{ selected: boolean }>`
+  background-color: ${(props) => (props.selected ? colors.red : colors.green)};
+  padding: 8px;
+  border-radius: 10px;
+`;
+const MarkerText = styled.Text`
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+`;
+const MarkerTriangle = styled.View<{ selected: boolean }>`
+  border: 10px solid transparent;
+  width: 10px;
+  border-top-color: ${(props) => (props.selected ? colors.red : colors.green)};
+`;
+
+const RoomMarker = ({
+  selected,
+  price,
+}: {
+  selected: boolean;
+  price: number;
+}) => (
+  <MarkerWrapper>
+    <MarkerContainer selected={selected}>
+      <MarkerText>$ {price}</MarkerText>
+    </MarkerContainer>
+    <MarkerTriangle selected={selected} />
+  </MarkerWrapper>
+);
 
 const Map: React.FC<IMapProps> = ({ rooms }) => {
   const mapRef = useRef<MapView | null>(null);
@@ -98,14 +131,16 @@ const Map: React.FC<IMapProps> = ({ rooms }) => {
           zoom: 10,
         }}
       >
-        {rooms?.map((room) => (
+        {rooms?.map((room, idx) => (
           <Marker
             key={room.id}
             coordinate={{
               latitude: parseFloat(room.lat),
               longitude: parseFloat(room.lng),
             }}
-          />
+          >
+            <RoomMarker selected={idx === index} price={room.price} />
+          </Marker>
         ))}
       </MapView>
       <ScrollView
