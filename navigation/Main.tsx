@@ -77,7 +77,7 @@ const Tabs = () => (
     />
     <TabsNavigator.Screen
       name="Map"
-      component={Map}
+      component={Map as any}
       options={{ headerShown: false }}
     />
     <TabsNavigator.Screen

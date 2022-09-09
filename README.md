@@ -205,3 +205,5 @@
   - 현재 index를 구했으면 그 index에 맞게 맵의 center를 이동시킨다.
 
 - #55 Map 4 (Marker Image)
+
+- #56 Map DONE

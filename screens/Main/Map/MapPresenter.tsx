@@ -6,15 +6,16 @@ import {
   StyleSheet,
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { connect } from 'react-redux';
 import styled from 'styled-components/native';
-import colors from '../../colors';
-import { RoomType } from '../../redux/roomsSlice';
-import { RootState } from '../../redux/store';
-import { SCREEN_WIDTH } from '../../utils';
+import colors from '../../../colors';
+import { RoomType } from '../../../redux/roomsSlice';
+import { SCREEN_WIDTH } from '../../../utils';
 
-interface IMapProps {
+interface IMapContainerProps {
   rooms: RoomType[];
+  mapRef: React.MutableRefObject<MapView | null>;
+  index: number;
+  onScroll: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
 }
 
 const Container = styled.View`
@@ -88,33 +89,12 @@ const RoomMarker = ({
   </MarkerWrapper>
 );
 
-const Map: React.FC<IMapProps> = ({ rooms }) => {
-  const mapRef = useRef<MapView | null>(null);
-  const [index, setIndex] = useState<number>(0);
-  const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const {
-      nativeEvent: {
-        contentOffset: { x },
-      },
-    } = e;
-    const roomIndex = Math.abs(Math.round(x / SCREEN_WIDTH));
-    setIndex(roomIndex);
-  };
-  useEffect(() => {
-    mapRef.current?.animateCamera(
-      {
-        center: {
-          latitude: parseFloat(rooms[index].lat),
-          longitude: parseFloat(rooms[index].lng),
-        },
-        altitude: 2000,
-        pitch: 0,
-        heading: 0,
-        zoom: 10,
-      },
-      { duration: 1000 }
-    );
-  }, [index]);
+const MapPresenter: React.FC<IMapContainerProps> = ({
+  index,
+  mapRef,
+  onScroll,
+  rooms,
+}) => {
   return (
     <Container>
       <MapView
@@ -180,8 +160,4 @@ const Map: React.FC<IMapProps> = ({ rooms }) => {
   );
 };
 
-function mapStateToProps(state: RootState) {
-  return { rooms: state.roomsReducer.explore.rooms };
-}
-
-export default connect(mapStateToProps)(Map);
+export default MapPresenter;
