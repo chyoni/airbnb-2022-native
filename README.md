@@ -193,3 +193,5 @@
 - #50 Profile DONE
 
 - #51 Edit profile 1
+
+- #52 Map 1
