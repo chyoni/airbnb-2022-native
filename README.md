@@ -195,3 +195,7 @@
 - #51 Edit profile 1
 
 - #52 Map 1
+
+- #53 Map 2
+
+  - ScrollView의 현재 index를 스크롤뷰 x의 값을 이용해 구한다.
