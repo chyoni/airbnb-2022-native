@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -56,6 +56,7 @@ const RoomPrice = styled.Text`
 `;
 
 const Map: React.FC<IMapProps> = ({ rooms }) => {
+  const mapRef = useRef<MapView | null>(null);
   const [index, setIndex] = useState<number>(0);
   const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const {
@@ -66,14 +67,30 @@ const Map: React.FC<IMapProps> = ({ rooms }) => {
     const roomIndex = Math.abs(Math.round(x / SCREEN_WIDTH));
     setIndex(roomIndex);
   };
+  useEffect(() => {
+    mapRef.current?.animateCamera(
+      {
+        center: {
+          latitude: parseFloat(rooms[index].lat),
+          longitude: parseFloat(rooms[index].lng),
+        },
+        altitude: 2000,
+        pitch: 0,
+        heading: 0,
+        zoom: 10,
+      },
+      { duration: 1000 }
+    );
+  }, [index]);
   return (
     <Container>
       <MapView
+        ref={mapRef}
         style={StyleSheet.absoluteFill}
         camera={{
           center: {
-            latitude: parseFloat(rooms[index].lat),
-            longitude: parseFloat(rooms[index].lng),
+            latitude: parseFloat(rooms[0].lat),
+            longitude: parseFloat(rooms[0].lng),
           },
           altitude: 2000,
           pitch: 0,

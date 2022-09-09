@@ -199,3 +199,7 @@
 - #53 Map 2
 
   - ScrollView의 현재 index를 스크롤뷰 x의 값을 이용해 구한다.
+
+- #54 Map 3
+
+  - 현재 index를 구했으면 그 index에 맞게 맵의 center를 이동시킨다.
