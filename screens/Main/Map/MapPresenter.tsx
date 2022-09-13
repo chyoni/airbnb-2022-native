@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
   ScrollView,
   StyleSheet,
-} from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import styled from 'styled-components/native';
-import colors from '../../../colors';
-import { RoomType } from '../../../redux/roomsSlice';
-import { SCREEN_WIDTH } from '../../../utils';
+} from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import styled from "styled-components/native";
+import colors from "../../../colors";
+import { RoomType } from "../../../redux/roomsSlice";
+import { SCREEN_WIDTH } from "../../../utils";
 
 interface IMapContainerProps {
   rooms: RoomType[];
@@ -129,7 +129,7 @@ const MapPresenter: React.FC<IMapContainerProps> = ({
         horizontal
         showsHorizontalScrollIndicator={false}
         pagingEnabled
-        style={{ position: 'absolute', bottom: 30 }}
+        style={{ position: "absolute", bottom: 30 }}
       >
         {rooms?.map((room) => (
           <RoomContainer key={room.id}>
@@ -137,15 +137,15 @@ const MapPresenter: React.FC<IMapContainerProps> = ({
               {room.photos !== undefined && room.photos?.length > 0 && (
                 <RoomPhoto
                   source={{ uri: room.photos[0].file }}
-                  resizeMode={'cover'}
+                  resizeMode={"cover"}
                 />
               )}
-              {room.photos === undefined && (
+              {(room.photos === undefined || room.photos.length === 0) && (
                 <RoomPhoto
                   source={{
-                    uri: 'https://images.unsplash.com/photo-1521568277769-1284832c95be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2848&q=80',
+                    uri: "https://images.unsplash.com/photo-1521568277769-1284832c95be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2848&q=80",
                   }}
-                  resizeMode={'cover'}
+                  resizeMode={"cover"}
                 />
               )}
               <Column>

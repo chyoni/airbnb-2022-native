@@ -1,12 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 import colors from "../../../colors";
 import { UserType } from "../../../redux/usersSlice";
-import { isAndroid, SCREEN_HEIGHT, SCREEN_WIDTH } from "../../../utils";
+import { isAndroid } from "../../../utils";
 import { EditProfileScreenNavigationProps } from "./EditProfileContainer";
+import * as ImagePicker from "expo-image-picker";
 
 interface IEditProfilePresenterProps {
   me: UserType;
@@ -65,6 +66,16 @@ const Divider = styled.View`
 
 const EditProfilePresenter: React.FC<IEditProfilePresenterProps> = ({ me }) => {
   const navigation = useNavigation<EditProfileScreenNavigationProps>();
+  const [image, setImage] = useState(null);
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    console.log(result);
+  };
   return (
     <Container>
       <HeaderContainer>
@@ -80,7 +91,7 @@ const EditProfilePresenter: React.FC<IEditProfilePresenterProps> = ({ me }) => {
           />
         </AvatarContainer>
         <SelectAvatarContainer>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={pickImage}>
             <Ionicons
               name={isAndroid() ? "md-camera" : "ios-camera"}
               size={25}
